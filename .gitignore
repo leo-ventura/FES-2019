@@ -1,13 +1,76 @@
-*.tar
-*.tar.*
-*.jar
-*.exe
-*.msi
-*.zip
-*.tgz
+### NetBeans ###
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+core
+nbproject/*
+!nbproject/project.properties
+!nbproject/project.xml
+
+*.so
+*.out
+*~
+*.swp
+*.DS_Store
+*.lock
+
+### Java ###
+# Compiled class file
+*.class
+
+# Log file
 *.log
 *.log.*
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.rar
+*.ear
+*.exe
+*.zip
+*.tar
+*.tar.*
+*.tgz
+*.msi
 *.sig
 
-pkg/
-src/
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+
+### ¯\_(ツ)_/¯ ###
+
+*/bin
+*bin
+*.bin
+*bin
+
+.metadata
+local.properties
+.settings/
+
+# Eclipse Core
+.project
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
+# Java annotation processor (APT)
+.factorypath
