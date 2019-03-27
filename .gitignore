@@ -42,7 +42,6 @@ nbproject/*
 *.ear
 *.exe
 *.zip
-*.tar
 *.tar.*
 *.tgz
 *.msi
