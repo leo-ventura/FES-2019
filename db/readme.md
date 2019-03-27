@@ -36,3 +36,5 @@ mysql> use VoceAluga;
 mysql> show tables; # deve aparecer Cliente
 mysql> select * from Cliente; # deve aparecer que está vazio
 ```
+# Deploying
+Antes de colocar em produção, é recomendável utilizar o script ```mysql_secure_installation``` para garantir algumas questões de segurança básica.
