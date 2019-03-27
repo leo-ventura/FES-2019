@@ -13,13 +13,16 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author mathe
+ * @author matheus
  */
 public class VoceAluga extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        
+        // setting title
+        stage.setTitle("Voce-Aluga System");
         
         Scene scene = new Scene(root);
         
