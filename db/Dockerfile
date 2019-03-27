@@ -12,3 +12,5 @@ ENV MYSQL_DATABASE VoceAluga
 # where every initialization file is put
 ADD init.sql /docker-entrypoint-initdb.d/
 
+# exposing port 3306
+EXPOSE 3306
