@@ -22,7 +22,7 @@ public class VoceAluga extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         // setting title
-        stage.setTitle("Voce-Aluga System");
+        stage.setTitle("Cadastrar Cliente – Você-Aluga");
         
         Scene scene = new Scene(root);
         
