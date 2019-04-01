@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javax.naming.NamingException;
@@ -28,36 +29,59 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Label label;
     
+    // Cliente variables being passed via FXML
     @FXML
-    private void handleButtonAction(ActionEvent event) throws SQLException, NamingException {
-        try{  
-            // configuring database
-            String url = "jdbc:mysql://localhost:3306/VoceAluga";
-            
-            // open connection
-            Connection connection = DriverManager.getConnection(url, "root", "mysql-root");
-            
-            // displaying information that our database has been connected successfully
-            label.setText("Database connected!");
-            
-            
-            // trying to work with the information available in the db
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from Cliente;");
-            
-            label.setText(rs.getInt(1) + " " + rs.getString(2));
-            
-            connection.close();
-            
-        } catch(Exception e){
-            System.err.println(e);
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                label.setText("Driver loaded!");
-            } catch (ClassNotFoundException ex) {
-                System.err.println("Cannot find the driver in the classpath!" + ex);
-            }
-        }
+    private TextField TFNome;
+    @FXML
+    private TextField TFEndereco;
+    @FXML
+    private TextField TFCC;
+    @FXML
+    private TextField TFData;
+    @FXML
+    private TextField TFCPF;
+    @FXML
+    private TextField TFCNH;
+    @FXML
+    private CheckBox CBSpecialNeeds;
+    
+    @FXML
+    private void handleCadastrar(ActionEvent event) throws ClassNotFoundException, SQLException {
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        
+        Cliente cliente = new Cliente();
+    
+        System.out.println("TFNome.getText(): " + TFNome.getText());
+        cliente.setNome(TFNome.getText());
+        
+        System.out.println("TFEndereco.getText(): " + TFEndereco.getText());
+        cliente.setEndereco(TFEndereco.getText());
+        
+        System.out.println("TFCC.getText(): " + TFCC.getText());
+        cliente.setCC(TFCC.getText());
+        
+        System.out.println("TFData.getText(): " + TFData.getText());
+        cliente.setData(TFData.getText());
+        
+        System.out.println("TFCPF.getText(): " + TFCPF.getText());
+        cliente.setCPF(TFCPF.getText());
+        
+        System.out.println("TFCNH.getText(): " + TFCNH.getText());
+        cliente.setCNH(TFCNH.getText());
+        
+        System.out.println("CBSpecialNeeds.getText(): " + CBSpecialNeeds.isSelected());
+        int specialNeedsStatus = 0;
+        if(CBSpecialNeeds.isSelected())
+            specialNeedsStatus = 1; // true
+        cliente.setNecessidadesEspeciais(specialNeedsStatus);
+        
+        String clienteValues = cliente.formatToInsert();
+        System.out.println(clienteValues);
+        
+        int r = dbHandler.insertIntoClienteTable(clienteValues);
+        System.out.println("Values have been inserted!\n" + r);
+        
+        dbHandler.close();
     }
     
     @Override
