@@ -14,21 +14,21 @@
             <Font size="20.0" />
          </font>
       </Label>
-        <Button fx:id="button" layoutX="331.0" layoutY="243.0" onAction="#handleButtonAction" text="Cadastrar" />
+        <Button fx:id="button" layoutX="331.0" layoutY="243.0" onAction="#handleCadastrar" text="Cadastrar" />
         <Label fx:id="label" alignment="CENTER" layoutX="16.0" layoutY="280.0" minHeight="16" minWidth="69" prefHeight="17.0" prefWidth="308.0" text="" textFill="#ff5a5a" />
-      <TextField layoutX="14.0" layoutY="68.0" prefHeight="25.0" prefWidth="185.0" promptText="João Ninguém da Silva" />
+      <TextField fx:id="TFNome" layoutX="14.0" layoutY="68.0" prefHeight="25.0" prefWidth="185.0" promptText="João Ninguém da Silva" />
       <Label layoutX="14.0" layoutY="51.0" text="Nome completo" />
-      <TextField layoutX="14.0" layoutY="116.0" prefHeight="25.0" prefWidth="185.0" promptText="Rua dos Bobos, 0" />
+      <TextField fx:id="TFEndereco" layoutX="14.0" layoutY="116.0" prefHeight="25.0" prefWidth="185.0" promptText="Rua dos Bobos, 0" />
       <Label layoutX="14.0" layoutY="99.0" text="Endereço" />
-      <TextField layoutX="14.0" layoutY="164.0" prefHeight="25.0" prefWidth="185.0" promptText="1111 2222 3333 4444" />
+      <TextField fx:id="TFCC" layoutX="14.0" layoutY="164.0" prefHeight="25.0" prefWidth="185.0" promptText="1111 2222 3333 4444" />
       <Label layoutX="14.0" layoutY="147.0" text="Número do Cartão de Cŕedito" />
-      <TextField layoutX="213.0" layoutY="68.0" prefHeight="25.0" prefWidth="185.0" promptText="31/02/1900" />
+      <TextField fx:id="TFData" layoutX="213.0" layoutY="68.0" prefHeight="25.0" prefWidth="185.0" promptText="31/02/1900" />
       <Label layoutX="213.0" layoutY="51.0" text="Data de Nascimento" />
-      <TextField layoutX="213.0" layoutY="116.0" prefHeight="25.0" prefWidth="185.0" promptText="123.456.789-00" />
+      <TextField fx:id="TFCPF" layoutX="213.0" layoutY="116.0" prefHeight="25.0" prefWidth="185.0" promptText="123.456.789-00" />
       <Label layoutX="213.0" layoutY="99.0" text="CPF" />
-      <TextField layoutX="213.0" layoutY="164.0" prefHeight="25.0" prefWidth="185.0" promptText="000 111 222 33" />
+      <TextField fx:id="TFCNH" layoutX="213.0" layoutY="164.0" prefHeight="25.0" prefWidth="185.0" promptText="000 111 222 33" />
       <Label layoutX="213.0" layoutY="147.0" text="CNH" />
-      <CheckBox layoutX="213.0" layoutY="210.0" mnemonicParsing="false" text="Possui necessidades especiais" />
+      <CheckBox fx:id="CBSpecialNeeds" layoutX="213.0" layoutY="210.0" mnemonicParsing="false" text="Possui necessidades especiais" />
       <Label layoutX="170.0" layoutY="23.0" text="Você-Aluga" textFill="#909090" />
     </children>
 </AnchorPane>
