@@ -5,7 +5,6 @@
  */
 package vocealuga;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.Util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,8 +15,9 @@ import java.sql.Statement;
  *
  * @author leo
  */
+
 public class DatabaseHandler {
-    Connection connection;
+    private Connection connection;
     
     public DatabaseHandler() throws ClassNotFoundException, SQLException {
         try {
@@ -33,14 +33,13 @@ public class DatabaseHandler {
             // printing status
             System.out.println("Database connected sucessfully");
         } catch(ClassNotFoundException ClassNotFoundError) {
-            System.out.println("Cannot find the driver in the classpath!" + ClassNotFoundError);
+            System.out.println("Cannot find the driver in the classpath! " + ClassNotFoundError);
         } catch(SQLException SQLError) {
             System.out.println("Error: " + SQLError);
         }
     }
     
     public ResultSet query(String query) throws SQLException {
-        // trying to work with the information available in the db
         Statement stmt = connection.createStatement();
         return stmt.executeQuery(query);
     }

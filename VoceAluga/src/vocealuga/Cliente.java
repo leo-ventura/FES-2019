@@ -20,9 +20,10 @@ public class Cliente {
     private String cnh;
     // Date dataDeNascimento; // it may be better to use it as a string
     // can't use boolean because mysql can't handle it
-    // though we can still use it as 0 => false and 2 => true
+    // though we can still use it as 0 => false and 1 => true
     private int necessidadesEspeciais;
     
+    // simple constructor
     public Cliente() {
         this.nome = "";
         this.endereco = "";
@@ -33,6 +34,23 @@ public class Cliente {
         this.necessidadesEspeciais = 0;
     }
     
+    // overloading Cliente constructor to simplify our code
+    public Cliente(String nome, String endereco, String cc,
+            String dataDeNascimento, String cpf, String cnh, 
+            int necessidadesEspeciais) {
+
+
+        this.nome = nome;
+        this.endereco = endereco;
+        this.cc = cc;
+        this.dataDeNascimento = dataDeNascimento;
+        this.cpf = cpf;
+        this.cnh = cnh;
+        this.necessidadesEspeciais = necessidadesEspeciais;
+    
+    }
+    
+    // setters
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -59,6 +77,36 @@ public class Cliente {
     
     public void setNecessidadesEspeciais(int sp) {
         this.necessidadesEspeciais = sp;
+    }
+    
+    
+    // getters
+    public String getNome() {
+        return this.nome;
+    }
+    
+    public String getEndereco() {
+        return this.endereco;
+    }
+    
+    public String getCC() {
+        return this.cc;
+    }
+    
+    public String getData() {
+        return this.dataDeNascimento;
+    }
+    
+    public String getCPF() {
+        return this.cpf;
+    }
+    
+    public String getCNH() {
+        return this.cnh;
+    }
+    
+    public int getNecessidadesEspeciais() {
+        return this.necessidadesEspeciais;
     }
     
     
