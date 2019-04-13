@@ -162,11 +162,11 @@ public class Cliente {
                 this.dataDeCadastro + endingSeparator;
     }
     
-//    public String toString() {
-//        return String.format("Nome: %s\nEndereco: %s\n"
-//                + "Data de nascimento: %s\nCartão de Crédito: %s\n"
-//                + "CPF: %s\nCNH: %s\nNecessidades Especiais: %s\n", 
-//                this.nome, this.endereco, this.dataDeNascimento.format(formatter),
-//                this.cc, this.cpf, this.cnh, this.necessidadesEspeciais==0?"Nao":"Sim");
-//    }
+    public String toString() {
+        return String.format("Nome: %s\nEndereco: %s\n"
+                + "Data de nascimento: %s\nCartão de Crédito: %s\n"
+                + "CPF: %s\nCNH: %s\nNecessidades Especiais: %s\n", 
+                this.nome, this.endereco, this.dataDeNascimento.format(formatter),
+                this.cc, this.cpf, this.cnh, this.necessidadesEspeciais==0?"Nao":"Sim");
+    }
 }

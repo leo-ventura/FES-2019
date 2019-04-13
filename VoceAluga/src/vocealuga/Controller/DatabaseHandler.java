@@ -50,8 +50,13 @@ public class DatabaseHandler {
         return stmt.executeQuery(query);
     }
     
+    public ResultSet checkCPF(String cpf) throws SQLException {
+        Statement stmt = connection.createStatement();
+        return stmt.executeQuery("select cpf from VoceAluga.Cliente where cpf = \"" + cpf + "\";");
+    }
+    
     public int insertIntoClienteTable(String values) throws SQLException {
-        String cmd = "insert into VoceAluga.Cliente (nome, endereco, cc, data, cpf, cnh, necessidades_especiais) values "
+        String cmd = "insert into VoceAluga.Cliente (nome, endereco, cc, data, cpf, cnh, necessidadesEspeciais, dataDeCriacao) values "
                 + values + ";";
         
 //        insert into Cliente (nome, endereco, cc, data, cpf, cnh, necessidades_especiais) values ("test", "end", "cc", "data", "cpf", "cnh", 1);

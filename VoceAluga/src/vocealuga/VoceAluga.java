@@ -19,7 +19,7 @@ public class VoceAluga extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("View/FXMLDocument.fxml"));
         
         // setting title
         stage.setTitle("Cadastrar Cliente – Você-Aluga");

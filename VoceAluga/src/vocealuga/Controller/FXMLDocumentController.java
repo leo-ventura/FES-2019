@@ -91,8 +91,7 @@ public class FXMLDocumentController implements Initializable {
                 
                 // checking if cpf is already being used
                 System.out.println("Cliente.getCPF(): " + cliente.getCPF());
-                ResultSet rs = dbHandler.query("select cpf from VoceAluga.Cliente"
-                        + "where cpf = \"" + cliente.getCPF() + "\";");
+                ResultSet rs = dbHandler.checkCPF(cliente.getCPF());
 
                 System.out.println("rs.first(): " + rs.first());
                 if(rs.first()) {
