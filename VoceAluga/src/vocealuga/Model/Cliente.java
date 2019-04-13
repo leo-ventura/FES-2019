@@ -3,32 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vocealuga;
+package vocealuga.Model;
 
 //import java.util.Date;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 
 /**
  *
  * @author leo
  */
+
+
+        
 public class Cliente {
     private String nome;
     private String endereco;
     private String cc;
-    private String dataDeNascimento;
+    private LocalDate dataDeNascimento;
     private String cpf;
     private String cnh;
     // Date dataDeNascimento; // it may be better to use it as a string
     // can't use boolean because mysql can't handle it
     // though we can still use it as 0 => false and 1 => true
     private int necessidadesEspeciais;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private LocalDate dataDeCadastro = LocalDate.now();
     
     // simple constructor
     public Cliente() {
         this.nome = "";
         this.endereco = "";
         this.cc = "";
-        this.dataDeNascimento = "";
+        this.dataDeNascimento = LocalDate.MIN;
         this.cpf = "";
         this.cnh = "";
         this.necessidadesEspeciais = 0;
@@ -36,7 +45,7 @@ public class Cliente {
     
     // overloading Cliente constructor to simplify our code
     public Cliente(String nome, String endereco, String cc,
-            String dataDeNascimento, String cpf, String cnh, 
+            LocalDate dataDeNascimento, String cpf, String cnh, 
             int necessidadesEspeciais) {
 
 
@@ -49,6 +58,22 @@ public class Cliente {
         this.necessidadesEspeciais = necessidadesEspeciais;
     
     }
+    
+    public Cliente(String nome, String endereco, String cc,
+            String dataDeNascimento, String cpf, String cnh, 
+            int necessidadesEspeciais) {
+
+
+        this.nome = nome;
+        this.endereco = endereco;
+        this.cc = cc;
+        this.dataDeNascimento = LocalDate.parse(dataDeNascimento, formatter);
+        this.cpf = cpf;
+        this.cnh = cnh;
+        this.necessidadesEspeciais = necessidadesEspeciais;
+    
+    }
+
     
     // setters
     public void setNome(String nome) {
@@ -63,8 +88,12 @@ public class Cliente {
         this.cc = cc;
     }
     
-    public void setData(String data) {
+    public void setData(LocalDate data) {
         this.dataDeNascimento = data;
+    }
+    
+    public void setData(String data) {
+        this.dataDeNascimento = LocalDate.parse(data, formatter);
     }
     
     public void setCPF(String cpf) {
@@ -77,6 +106,14 @@ public class Cliente {
     
     public void setNecessidadesEspeciais(int sp) {
         this.necessidadesEspeciais = sp;
+    }
+    
+    public void setDataDeCadastro(LocalDate data) {
+        this.dataDeCadastro = data;
+    }
+    
+    public void setDataDeCadastro(String data) {
+        this.dataDeCadastro = LocalDate.parse(data, formatter);
     }
     
     
@@ -94,7 +131,7 @@ public class Cliente {
     }
     
     public String getData() {
-        return this.dataDeNascimento;
+        return this.dataDeNascimento.format(formatter);
     }
     
     public String getCPF() {
@@ -109,10 +146,27 @@ public class Cliente {
         return this.necessidadesEspeciais;
     }
     
+    public String getDatadeCadastro() {
+        return this.dataDeCadastro.format(formatter);
+    }
+    
     
     public String formatToInsert() {
-        return "(\"" + this.nome + "\", \"" + this.endereco + "\", \"" + this.cc + "\", \"" +
-                this.dataDeNascimento + "\", \"" + this.cpf + "\", \"" + 
-                this.cnh + "\", \"" + this.necessidadesEspeciais + "\")";
+        String beginningSeparator = "(\"";
+        String midSeparator = "\", \"";
+        String endingSeparator = "\")";
+        return beginningSeparator + this.nome + midSeparator + this.endereco +
+                midSeparator + this.cc + midSeparator + this.dataDeNascimento +
+                midSeparator + this.cpf + midSeparator + this.cnh + midSeparator +
+                this.necessidadesEspeciais + midSeparator +
+                this.dataDeCadastro + endingSeparator;
+    }
+    
+    public String toString() {
+        return String.format("Nome: %s\nEndereco: %s\n"
+                + "Data de nascimento: %s\nCartão de Crédito: %s\n"
+                + "CPF: %s\nCNH: %s\nNecessidades Especiais: %s\n", 
+                this.nome, this.endereco, this.dataDeNascimento.format(formatter),
+                this.cc, this.cpf, this.cnh, this.necessidadesEspeciais==0?"Nao":"Sim");
     }
 }
