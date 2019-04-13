@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vocealuga.controller;
+package vocealuga.Controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,14 +23,18 @@ public class DatabaseHandler {
     
     public DatabaseHandler() throws ClassNotFoundException, SQLException {
         try {
+            String remoteIP = System.getenv("MYSQL_REMOTE_IP");
+            String databaseUser = System.getenv("MYSQL_REMOTE_USER");
+            String databasePassword = System.getenv("MYSQL_REMOTE_PASSWORD");
+                    
             // loading driver
             Class.forName("com.mysql.cj.jdbc.Driver");            
             
             // configuring database
-            String url = "jdbc:mysql://localhost:3306/VoceAluga";
+            String url = "jdbc:mysql://" + remoteIP + ":3306/VoceAluga";
 
             // open connection
-            this.connection = DriverManager.getConnection(url, "root", "mysql-root");
+            this.connection = DriverManager.getConnection(url, databaseUser, databasePassword);
 
             // printing status
             System.out.println("Database connected sucessfully");

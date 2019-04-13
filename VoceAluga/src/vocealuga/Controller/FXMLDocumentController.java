@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vocealuga.controller;
+package vocealuga.Controller;
 
 // importing sql lib
 import java.sql.*;
@@ -17,14 +17,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javax.naming.NamingException;
+//import javax.naming.NamingException;
 
-import vocealuga.model.Cliente;
-
+import vocealuga.Model.Cliente;
 
 /**
  *
- * @author matheus
+ * @author avellar
  * @author leo
  */
 public class FXMLDocumentController implements Initializable {
@@ -50,26 +49,20 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void handleCadastrar(ActionEvent event) throws ClassNotFoundException, SQLException {
-        //DatabaseHandler dbHandler = new DatabaseHandler();
-        /*
-        Cliente cliente = new Cliente(TFNome.getText(), TFEndereco.getText(),
-                TFCC.getText(), TFData.getText(), TFCPF.getText(), TFCNH.getText(),
-                (CBSpecialNeeds.isSelected() ? 1 : 0)
-        );
-        */
-        
+        // retrieving information from input field        
         String name = TFNome.getText();
-        String adress = TFEndereco.getText();
+        String address = TFEndereco.getText();
         String creditCard = TFCC.getText();
         String date = TFData.getText();
         String cpf = TFCPF.getText();
         String cnh = TFCNH.getText();
-        int specialNeeds = CBSpecialNeeds.isSelected()? 1 : 0;
+        int specialNeeds = CBSpecialNeeds.isSelected() ? 1 : 0;
         
+
         if(name.isEmpty()){
             System.out.println("Insira o nome");
         }
-        else if(adress.isEmpty()){
+        else if(address.isEmpty()){
             System.out.println("Insira o endereço");
         }
         else if(creditCard.isEmpty()){
@@ -79,74 +72,50 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("Insira a data de nascimento");
         }
         else if(cpf.isEmpty()){
-            System.out.println("Insira o nome");
+            System.out.println("Insira o CPF");
         }
         else if (!isCPF(cpf)){
             System.out.println("CPF invalido");
         }
         else if(cnh.isEmpty()){
-            System.out.println("Insira o nome");
+            System.out.println("Insira a CNH");
         }
         else {
             try {
-                Cliente cliente = new Cliente(name, adress, creditCard, date, cpf, cnh, specialNeeds);
+                Cliente cliente = new Cliente(name, address, creditCard, date,
+                                        cpf, cnh, specialNeeds);
+                
+                System.out.println("Cliente.getCPF(): " + cliente.getCPF());
+
+                DatabaseHandler dbHandler = new DatabaseHandler();
+                
+                // checking if cpf is already being used
+                System.out.println("Cliente.getCPF(): " + cliente.getCPF());
+                ResultSet rs = dbHandler.query("select cpf from VoceAluga.Cliente"
+                        + "where cpf = \"" + cliente.getCPF() + "\";");
+
+                System.out.println("rs.first(): " + rs.first());
+                if(rs.first()) {
+                    System.out.println("The provided CPF is already in use!");
+                    // TODO: Add an alert telling that to the user
+                    // CC: @avellar
+                } else {
+
+                    String clienteValues = cliente.formatToInsert();
+                    System.out.println(clienteValues);
+
+                    int r = dbHandler.insertIntoClienteTable(clienteValues);
+                    System.out.println("Values have been inserted!\n" + r);
+                }
+
+                // closing connection
+                dbHandler.close();
+
                 System.out.println(cliente);
             } catch (Exception e){
                 System.out.println(e.getMessage());
             }
-        }
-        
-      
-    /*
-        System.out.println("TFNome.getText(): " + TFNome.getText());
-//        cliente.setNome(TFNome.getText());
-        
-        System.out.println("TFEndereco.getText(): " + TFEndereco.getText());
-//        cliente.setEndereco(TFEndereco.getText());
-        
-        System.out.println("TFCC.getText(): " + TFCC.getText());
-//        cliente.setCC(TFCC.getText());
-        
-        System.out.println("TFData.getText(): " + TFData.getText());
-//        cliente.setData(TFData.getText());
-        
-        System.out.println("TFCPF.getText(): " + TFCPF.getText());
-//        cliente.setCPF(TFCPF.getText());
-        
-        System.out.println("TFCNH.getText(): " + TFCNH.getText());
-//        cliente.setCNH(TFCNH.getText());
-        
-        System.out.println("CBSpecialNeeds.getText(): " + CBSpecialNeeds.isSelected());
-//        int specialNeedsStatus = 0;
-//        if(CBSpecialNeeds.isSelected())
-//            specialNeedsStatus = 1; // true
-//        cliente.setNecessidadesEspeciais(specialNeedsStatus);
-        */
-    
-        
-        
-        /*
-        // checking if cpf is already being used
-        System.out.println("Cliente.getCPF(): " + cliente.getCPF());
-        ResultSet rs = dbHandler.query("select CPF from VoceAluga.Cliente where CPF = \""+
-                cliente.getCPF() + "\";");
-        
-        System.out.println("rs.first(): " + rs.first());
-        if(rs.first()) {
-            System.out.println("The provided CPF is already in use!");
-            // TODO: Add an alert telling that to the user
-        } else {
-            
-            String clienteValues = cliente.formatToInsert();
-            System.out.println(clienteValues);
-
-            int r = dbHandler.insertIntoClienteTable(clienteValues);
-            System.out.println("Values have been inserted!\n" + r);
-        }
-        */
-        
-        // closing connection
-        //dbHandler.close();
+        }        
     }
 
     @Override
@@ -163,23 +132,23 @@ public class FXMLDocumentController implements Initializable {
             CPF.equals("66666666666") || CPF.equals("77777777777") ||
             CPF.equals("88888888888") || CPF.equals("99999999999") ||
             (CPF.length() != 11))
-            return(false);
+            return false;
           
         char dig10, dig11;
         int sm, i, r, num, peso;
           
         // "try" - protege o codigo para eventuais erros de conversao de tipo (int)
         try {
-        // Calculo do 1o. Digito Verificador
+            // Calculo do 1o. Digito Verificador
             sm = 0;
             peso = 10;
             for (i=0; i<9; i++) {              
-        // converte o i-esimo caractere do CPF em um numero:
-        // por exemplo, transforma o caractere '0' no inteiro 0         
-        // (48 eh a posicao de '0' na tabela ASCII)         
-            num = (int)(CPF.charAt(i) - 48); 
-            sm = sm + (num * peso);
-            peso = peso - 1;
+                // converte o i-esimo caractere do CPF em um numero:
+                // por exemplo, transforma o caractere '0' no inteiro 0         
+                // (48 eh a posicao de '0' na tabela ASCII) 
+                num = (int)(CPF.charAt(i) - 48); 
+                sm = sm + (num * peso);
+                peso = peso - 1;
             }
           
             r = 11 - (sm % 11);
@@ -191,9 +160,9 @@ public class FXMLDocumentController implements Initializable {
             sm = 0;
             peso = 11;
             for(i=0; i<10; i++) {
-            num = (int)(CPF.charAt(i) - 48);
-            sm = sm + (num * peso);
-            peso = peso - 1;
+                num = (int)(CPF.charAt(i) - 48);
+                sm = sm + (num * peso);
+                peso = peso - 1;
             }
           
             r = 11 - (sm % 11);
@@ -203,11 +172,10 @@ public class FXMLDocumentController implements Initializable {
           
         // Verifica se os digitos calculados conferem com os digitos informados.
             if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10)))
-                 return(true);
-            else return(false);
-                } catch (InputMismatchException erro) {
-                return(false);
-            }
+                 return true;
+            else return false;
+        } catch (InputMismatchException erro) {
+            return false;
         }
-    
+    }
 }

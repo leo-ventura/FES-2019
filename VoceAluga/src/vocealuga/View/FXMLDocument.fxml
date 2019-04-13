@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="282.0" maxWidth="412.0" minHeight="282.0" minWidth="412.0" prefHeight="282.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vocealuga.FXMLDocumentController">
+<AnchorPane id="AnchorPane" maxHeight="282.0" maxWidth="412.0" minHeight="282.0" minWidth="412.0" prefHeight="282.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vocealuga.Controller.FXMLDocumentController">
     <children>
       <Label layoutX="14.0" layoutY="14.0" text="Cadastrar Cliente">
          <font>

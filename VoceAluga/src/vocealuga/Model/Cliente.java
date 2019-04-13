@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vocealuga.model;
+package vocealuga.Model;
 
 //import java.util.Date;
 
@@ -30,6 +30,7 @@ public class Cliente {
     // though we can still use it as 0 => false and 1 => true
     private int necessidadesEspeciais;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private LocalDate dataDeCadastro = LocalDate.now();
     
     // simple constructor
     public Cliente() {
@@ -58,7 +59,7 @@ public class Cliente {
     
     }
     
-        public Cliente(String nome, String endereco, String cc,
+    public Cliente(String nome, String endereco, String cc,
             String dataDeNascimento, String cpf, String cnh, 
             int necessidadesEspeciais) {
 
@@ -107,6 +108,14 @@ public class Cliente {
         this.necessidadesEspeciais = sp;
     }
     
+    public void setDataDeCadastro(LocalDate data) {
+        this.dataDeCadastro = data;
+    }
+    
+    public void setDataDeCadastro(String data) {
+        this.dataDeCadastro = LocalDate.parse(data, formatter);
+    }
+    
     
     // getters
     public String getNome() {
@@ -137,17 +146,27 @@ public class Cliente {
         return this.necessidadesEspeciais;
     }
     
+    public String getDatadeCadastro() {
+        return this.dataDeCadastro.format(formatter);
+    }
+    
     
     public String formatToInsert() {
-        return "(\"" + this.nome + "\", \"" + this.endereco + "\", \"" + this.cc + "\", \"" +
-                this.dataDeNascimento + "\", \"" + this.cpf + "\", \"" + 
-                this.cnh + "\", \"" + this.necessidadesEspeciais + "\")";
+        String beginningSeparator = "(\"";
+        String midSeparator = "\", \"";
+        String endingSeparator = "\")";
+        return beginningSeparator + this.nome + midSeparator + this.endereco +
+                midSeparator + this.cc + midSeparator + this.dataDeNascimento +
+                midSeparator + this.cpf + midSeparator + this.cnh + midSeparator +
+                this.necessidadesEspeciais + midSeparator +
+                this.dataDeCadastro + endingSeparator;
     }
     
-    public String toString() {
-        return String.format("Nome: %s\nEndereco: %s\n"
-                + "Data de nascimento: %s\nCartão de Crédito: %s\n"
-                + "CPF: %s\nCNH: %s\nNecessidades Especiais: %s\n", 
-                this.nome, this.endereco, this.dataDeNascimento.format(formatter), this.cc, this.cpf, this.cnh, this.necessidadesEspeciais==0?"Nao":"Sim");
-    }
+//    public String toString() {
+//        return String.format("Nome: %s\nEndereco: %s\n"
+//                + "Data de nascimento: %s\nCartão de Crédito: %s\n"
+//                + "CPF: %s\nCNH: %s\nNecessidades Especiais: %s\n", 
+//                this.nome, this.endereco, this.dataDeNascimento.format(formatter),
+//                this.cc, this.cpf, this.cnh, this.necessidadesEspeciais==0?"Nao":"Sim");
+//    }
 }
