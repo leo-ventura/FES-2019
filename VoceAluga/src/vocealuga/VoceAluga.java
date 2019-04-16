@@ -16,18 +16,15 @@ import javafx.stage.Stage;
  * @author matheus
  */
 public class VoceAluga extends Application {
-    
+
     @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("View/FXMLDocument.fxml"));
-        
-        // setting title
-        stage.setTitle("Cadastrar Cliente – Você-Aluga");
-        
-        Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryWindow) throws Exception {
+        Parent vMenu = FXMLLoader.load(getClass().getResource("View/FXMLMenu.fxml"));
+        primaryWindow.setTitle("Menu – Você-Aluga");
+        Scene sceneMenu = new Scene(vMenu);
+        primaryWindow.setScene(sceneMenu);
+        primaryWindow.setResizable(false);
+        primaryWindow.show();
     }
 
     /**

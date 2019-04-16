@@ -14,10 +14,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-//import javax.naming.NamingException;
+import javafx.stage.Stage;
 
 import vocealuga.Model.Cliente;
 
@@ -26,11 +26,8 @@ import vocealuga.Model.Cliente;
  * @author avellar
  * @author leo
  */
-public class FXMLDocumentController implements Initializable {
-    
-    @FXML
-    private Label label;
-    
+public class FXMLCadastrarController implements Initializable {
+
     // Cliente variables being passed via FXML
     @FXML
     private TextField TFNome;
@@ -48,8 +45,17 @@ public class FXMLDocumentController implements Initializable {
     private CheckBox CBSpecialNeeds;
     
     @FXML
+    private Button buttonCancel;
+    
+    @FXML
+    private void handleClose(ActionEvent event) {
+        // TODO: Adicionar um popup confirmando o cancelamento de cadastro
+        // (para não perder possíveis informações inseridas)
+        ((Stage) buttonCancel.getScene().getWindow()).close();
+    }
+    
+    @FXML
     private void handleCadastrar(ActionEvent event) throws ClassNotFoundException, SQLException {
-        // retrieving information from input field        
         String name = TFNome.getText();
         String address = TFEndereco.getText();
         String creditCard = TFCC.getText();
@@ -155,7 +161,7 @@ public class FXMLDocumentController implements Initializable {
                 dig10 = '0';
             else dig10 = (char)(r + 48); // converte no respectivo caractere numerico
           
-        // Calculo do 2o. Digito Verificador
+            // Calculo do 2o. Digito Verificador
             sm = 0;
             peso = 11;
             for(i=0; i<10; i++) {
@@ -169,7 +175,7 @@ public class FXMLDocumentController implements Initializable {
                  dig11 = '0';
             else dig11 = (char)(r + 48);
           
-        // Verifica se os digitos calculados conferem com os digitos informados.
+            // Verifica se os digitos calculados conferem com os digitos informados.
             if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10)))
                  return true;
             else return false;

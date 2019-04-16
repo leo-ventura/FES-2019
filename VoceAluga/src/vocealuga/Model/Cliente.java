@@ -6,18 +6,14 @@
 package vocealuga.Model;
 
 //import java.util.Date;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 
 /**
  *
  * @author leo
  */
 
-
-        
 public class Cliente {
     private String nome;
     private String endereco;
