@@ -1,12 +1,18 @@
-# FES-2019
-Projeto de Fundamentos de Engenharia de Software utilizando metodologia ágil e
-Scrum.
+# Fundamentos de Engenharia de Software (2019.1)
+Projeto de FES utilizando metodologia ágil e Scrum, desenvolvido com JavaFX.
 
 # Objetivos
-Utilizando o caso de uso da empresa Você-Aluga, utilizaremos 4 sprints para
-chegar ao nosso objetivo (numa média de 3 semanas para cada sprint).
+Utilizando o caso de uso da empresa fictícia Você-Aluga, utilizaremos 4 sprints
+para chegar ao nosso objetivo (numa média de 3 semanas para cada sprint).
 
-# Programa
+# DevLog
+
+## Sprint 2
+<p align="center">
+  <img src="https://i.imgur.com/6UBCHdM.png">
+  <img src="https://i.imgur.com/MH8hUHt.png">
+  <img src="https://i.imgur.com/jsWkaPa.png">
+</p>
 
 ## Sprint 1
 Para o primeiro sprint, desenvolvemos o cadastro de clientes:
@@ -14,7 +20,6 @@ Para o primeiro sprint, desenvolvemos o cadastro de clientes:
 <p align="center">
   <img src="https://i.imgur.com/Ug7lJEm.png">
 </p>
-
 
 # Equipe
 
