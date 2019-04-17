@@ -51,12 +51,12 @@ public class FXMLCadastrarController implements Initializable {
     
     @FXML
     private void handleCadastrar(ActionEvent event) throws SQLException {
-        String name = TFNome.getText();
-        String address = TFEndereco.getText();
-        String creditCard = TFCC.getText();
-        String date = TFData.getText();
-        String cpf = TFCPF.getText();
-        String cnh = TFCNH.getText();
+        String name = TFNome.getText().trim();
+        String address = TFEndereco.getText().trim();
+        String creditCard = TFCC.getText().replaceAll(" ", "");
+        String date = TFData.getText().trim().replaceAll("-", "/");
+        String cpf = TFCPF.getText().replaceAll("[ \\.-]", "");
+        String cnh = TFCNH.getText().replaceAll(" ", "");
         int specialNeeds = CBSpecialNeeds.isSelected() ? 1 : 0;
         
 
@@ -66,8 +66,8 @@ public class FXMLCadastrarController implements Initializable {
         else if(address.isEmpty()){
             System.out.println("Insira o endereço");
         }
-        else if(creditCard.isEmpty()){
-            System.out.println("Insira o cartão de crédito");
+        else if(!validateCC(creditCard)){
+            System.out.println("Insira um cartão de crédito válido");
         }
         else if(date.isEmpty()){
             System.out.println("Insira a data de nascimento");
@@ -75,7 +75,7 @@ public class FXMLCadastrarController implements Initializable {
         else if(cpf.isEmpty()){
             System.out.println("Insira o CPF");
         }
-        else if (!isCPF(cpf)){
+        else if (!validateCPF(cpf)){
             System.out.println("CPF invalido");
         }
         else if(cnh.isEmpty()){
@@ -122,18 +122,24 @@ public class FXMLCadastrarController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+        
+    public boolean validateCC(String cc) {
+        if(cc.length() != 16 || cc.replaceAll("[^0-9]", "_").contains("_"))
+            return false;
+        return true;
+    }
     
-    public static boolean isCPF(String CPF) {
+    public static boolean validateCPF(String CPF) {
         // considera-se erro CPF's formados por uma sequencia de numeros iguais
         if (CPF.equals("00000000000") ||
             CPF.equals("11111111111") ||
-            CPF.equals("22222222222") || CPF.equals("33333333333") ||
             CPF.equals("44444444444") || CPF.equals("55555555555") ||
             CPF.equals("66666666666") || CPF.equals("77777777777") ||
             CPF.equals("88888888888") || CPF.equals("99999999999") ||
             (CPF.length() != 11))
             return false;
-          
+        if(CPF.length() != 11) return false;
+
         char dig10, dig11;
         int sm, i, r, num, peso;
           
