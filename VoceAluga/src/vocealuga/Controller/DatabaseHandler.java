@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-//import vocealuga.model.Cliente;
+import vocealuga.Model.Cliente;
 
 /**
  *
@@ -45,9 +45,37 @@ public class DatabaseHandler {
         return stmt.executeQuery(query);
     }
     
+    public ResultSet fetchClienteInfo(Cliente cliente) throws SQLException {
+        // procurando primeiro por dados que, em teoria, sao unicos:
+        // cpf, cnh
+        // depois procuramos por dados que talvez nao sejam unicos e, consequentemente,
+        // podem nao retornar apenas um resultado
+        String query = "select * from VoceAluga.Cliente where ";
+        String endQuery = "\";";
+        if(!cliente.getCPF().equals("")) {
+            query += "cpf = \"" + cliente.getCPF() + endQuery;
+        }
+        else if(!cliente.getCNH().equals("")) {
+            query += "cnh = \"" + cliente.getCNH() + endQuery;
+        }
+        else if(!cliente.getNome().equals("")) {
+            query += "nome = \"" + cliente.getNome() + endQuery;
+        }
+        else if(!cliente.getData().equals("")) {
+            query += "data = \"" + cliente.getData() + endQuery;
+        }
+        else if(!cliente.getCC().equals("")) {
+            query += "cc = \"" + cliente.getCC() + endQuery;
+        }
+        else if(!cliente.getEndereco().equals("")) {
+            query += "endereco = \"" + cliente.getEndereco() + endQuery;
+        }
+        
+        return query(query);
+    }
+    
     public ResultSet checkCPF(String cpf) throws SQLException {
-        Statement stmt = connection.createStatement();
-        return stmt.executeQuery("select cpf from VoceAluga.Cliente where cpf = \"" + cpf + "\";");
+        return query("select cpf from VoceAluga.Cliente where cpf = \"" + cpf + "\";");
     }
     
     public int insertIntoClienteTable(String values) throws SQLException {
