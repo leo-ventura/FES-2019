@@ -70,7 +70,18 @@ public class Cliente {
     
     }
     
-        public Cliente(String nome, String endereco, String cc,
+    public Cliente(String nome, //String endereco, String cc,
+            /*String dataDeNascimento,*/ String cpf, String cnh) {
+
+        this.nome = nome;
+//        this.endereco = endereco;
+//        this.cc = cc;
+//        this.dataDeNascimento = LocalDate.parse(dataDeNascimento, formatter);
+        this.cpf = cpf;
+        this.cnh = cnh;    
+    }
+    
+    public Cliente(String nome, String endereco, String cc,
             String dataDeNascimento, String cpf, String cnh, 
             int necessidadesEspeciais, String dataDeCadastro) {
 
