@@ -4,15 +4,11 @@ package vocealuga.Controller;
 import java.sql.*;
 
 import java.net.URL;
-import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import vocealuga.Model.Cliente;
 
@@ -45,11 +41,33 @@ public class FXMLBuscarController implements Initializable {
         String date = TFBuscarDataNascimento.getText();
         String cpf = TFBuscarCPF.getText();
         String cnh = TFBuscarCNH.getText();
-        
+           
         // database handler
         DatabaseHandler dbHandler = new DatabaseHandler();
         
+        ResultSet rs = dbHandler.fetchClienteInfo(
+                new Cliente(name, address, creditCard, date, cpf, cnh, 0)
+        );
         
+        while(rs.next()) {
+            name = rs.getString("nome");
+            address = rs.getString("endereco");
+            date = rs.getString("data");
+            cpf = rs.getString("cpf");
+            cnh = rs.getString("cnh");
+            creditCard = rs.getString("cc");
+            String specialNeeds = rs.getInt("necessidadesEspeciais") == 1 ? "Sim" : "Nao";
+            
+            System.out.println("Nome:" + name);
+            System.out.println("Endereco:" + address);
+            System.out.println("Data de Nascimento:" + date);
+            System.out.println("CPF:" + cpf);
+            System.out.println("CNH:" + cnh);
+            System.out.println("CC:" + creditCard);
+            System.out.println("Necessidades Especiais:" + specialNeeds);
+        }
+        
+        dbHandler.close();
     }
 
     @Override
