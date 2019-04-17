@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vocealuga.Controller;
 
 // importing sql lib
@@ -55,7 +50,7 @@ public class FXMLCadastrarController implements Initializable {
     }
     
     @FXML
-    private void handleCadastrar(ActionEvent event) throws ClassNotFoundException, SQLException {
+    private void handleCadastrar(ActionEvent event) throws SQLException {
         String name = TFNome.getText();
         String address = TFEndereco.getText();
         String creditCard = TFCC.getText();
