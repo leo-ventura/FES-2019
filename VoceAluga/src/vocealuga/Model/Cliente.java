@@ -69,6 +69,23 @@ public class Cliente {
         this.necessidadesEspeciais = necessidadesEspeciais;
     
     }
+    
+        public Cliente(String nome, String endereco, String cc,
+            String dataDeNascimento, String cpf, String cnh, 
+            int necessidadesEspeciais, String dataDeCadastro) {
+
+
+        this.nome = nome;
+        this.endereco = endereco;
+        this.cc = cc;
+        this.dataDeNascimento = LocalDate.parse(dataDeNascimento, formatter);
+        this.cpf = cpf;
+        this.cnh = cnh;
+        this.necessidadesEspeciais = necessidadesEspeciais;
+        this.dataDeCadastro = LocalDate.parse(dataDeCadastro, formatter);
+    
+    }
+
 
     
     // setters

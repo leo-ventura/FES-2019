@@ -24,13 +24,24 @@
       <Label layoutX="14.0" layoutY="120.0" text="Por CPF:" />
       <TextField fx:id="TFBuscarCNH" layoutX="135.0" layoutY="147.0" promptText="000 111 222 33" />
       <Label layoutX="14.0" layoutY="151.0" text="Por CNH:" />
-      <TextField fx:id="TFBuscarEndereco" layoutX="135.0" layoutY="178.0" promptText="Rua dos Bobos, 0" />
+      <!--<TextField fx:id="TFBuscarEndereco" layoutX="135.0" layoutY="178.0" promptText="Rua dos Bobos, 0" />
       <Label layoutX="14.0" layoutY="182.0" text="Por endereço:" />
       <TextField fx:id="TFBuscarDataNascimento" layoutX="135.0" layoutY="209.0" promptText="31/02/1900" />
       <Label layoutX="14.0" layoutY="213.0" text="Por nascimento:" />
       <TextField fx:id="TFBuscarCC" layoutX="135.0" layoutY="240.0" promptText="1111 2222 3333 4444" />
-      <Label layoutX="14.0" layoutY="244.0" text="Por cartão:" />
+      <Label layoutX="14.0" layoutY="244.0" text="Por cartão:" />-->
       <Button alignment="CENTER" layoutX="233.0" layoutY="273.0" mnemonicParsing="false" text="Buscar" textAlignment="RIGHT" AnchorPane.bottomAnchor="14.0" onAction="#handleBuscar" />
-      <Label layoutX="414.0" layoutY="151.0" text="(buscar veículo)" textFill="#909090" />
+      <Label fx:id="LabelErro" layoutX="414.0" layoutY="151.0" text="Cliente não encontrado" textFill="#ff0000" visible="false"/>
+      <Label fx:id="LabelNome" layoutX="314.0" layoutY="27.0" text="Nome: " visible="false"/>
+      <Label fx:id="LabelCPF" layoutX="314.0" layoutY="58.0" text="CPF: " visible="false"/>
+      <Label fx:id="LabelCNH" layoutX="314.0" layoutY="89.0" text="CNH: "  visible="false"/>
+      <Label fx:id="LabelEndereco" layoutX="314.0" layoutY="120.0" text="Endereço: " visible="false"/>
+      <Label fx:id="LabelNascimento" layoutX="314.0" layoutY="151.0" text="Nascimento: "  visible="false"/>
+      <Label fx:id="LabelCartao" layoutX="314.0" layoutY="182.0" text="Cartão: "  visible="false"/>
+      <Label fx:id="LabelNecessidadesEspeciais" layoutX="314.0" layoutY="213.0" text="Necessidades Especiais: "  visible="false"/>
+      <Label fx:id="LabelDataDeCadastro" layoutX="314.0" layoutY="244.0" text="Data de Cadastro: " visible="false" />
+      
+
+      
    </children>
 </AnchorPane>
