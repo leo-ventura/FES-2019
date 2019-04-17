@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package vocealuga.Model;
 
 //import java.util.Date;
@@ -147,17 +152,19 @@ public class Cliente {
         String midSeparator = "\", \"";
         String endingSeparator = "\")";
         return beginningSeparator + this.nome + midSeparator + this.endereco +
-                midSeparator + this.cc + midSeparator + this.dataDeNascimento +
+                midSeparator + this.cc + midSeparator + this.dataDeNascimento.format(formatter) +
                 midSeparator + this.cpf + midSeparator + this.cnh + midSeparator +
                 this.necessidadesEspeciais + midSeparator +
-                this.dataDeCadastro + endingSeparator;
+                this.dataDeCadastro.format(formatter) + endingSeparator;
     }
     
     public String toString() {
         return String.format("Nome: %s\nEndereco: %s\n"
                 + "Data de nascimento: %s\nCartão de Crédito: %s\n"
-                + "CPF: %s\nCNH: %s\nNecessidades Especiais: %s\n", 
+                + "CPF: %s\nCNH: %s\nNecessidades Especiais: %s\n"
+                + "Data de cadastro: %s\n",
                 this.nome, this.endereco, this.dataDeNascimento.format(formatter),
-                this.cc, this.cpf, this.cnh, this.necessidadesEspeciais==0?"Nao":"Sim");
+                this.cc, this.cpf, this.cnh, this.necessidadesEspeciais==0?"Nao":"Sim",
+                this.dataDeCadastro.format(formatter));
     }
 }
