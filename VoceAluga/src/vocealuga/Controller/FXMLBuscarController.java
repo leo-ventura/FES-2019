@@ -54,7 +54,6 @@ public class FXMLBuscarController implements Initializable {
     private Label LabelErro;
 
     
-    
     @FXML
     private void handleBuscar(ActionEvent event) throws SQLException, ClassNotFoundException {
         String name = TFBuscarNome.getText();
@@ -71,48 +70,56 @@ public class FXMLBuscarController implements Initializable {
                 new Cliente(name,/* address, creditCard, date,*/ cpf, cnh)
         );
         
-        System.out.println("rs.first(): " + rs.first());
-        
-        
-        if(rs.first()) {
-            // pelo menos um cliente existe
-            while(rs.next()) {
-                name = rs.getString("nome");
-                String address = rs.getString("endereco");
-                String date = rs.getString("data");
-                cpf = rs.getString("cpf");
-                cnh = rs.getString("cnh");
-                String creditCard = rs.getString("cc");
-                String specialNeeds = rs.getInt("necessidadesEspeciais") == 1 ? "Sim" : "Nao";
-                String dataDeCadastro = rs.getString("dataDeCadastro");
+//        System.out.println("rs.first(): " + rs.first());
 
-                LabelErro.setVisible(false);
-                LabelNome.setVisible(true);
-                LabelNome.setText("Nome: " + name);
-                LabelCPF.setVisible(true);
-                LabelCPF.setText("CPF: " + cpf);
-                LabelCNH.setVisible(true);
-                LabelCNH.setText("CNH: " + cnh);
-                LabelEndereco.setVisible(true);
-                LabelEndereco.setText("Endereço: " + address);
-                LabelNascimento.setVisible(true);
-                LabelNascimento.setText("Data de Nascimento: " + date);
-                LabelCartao.setVisible(true);
-                LabelCartao.setText("Cartão: " + creditCard);
-                LabelNecessidadesEspeciais.setVisible(true);
-                LabelNecessidadesEspeciais.setText("Necessidades especiais: " + specialNeeds);
-                LabelDataDeCadastro.setVisible(true);
-                LabelDataDeCadastro.setText("Data de Cadastro: " + dataDeCadastro);
-                
-                // System.out.println("Nome:" + name);
-                // System.out.println("Endereco:" + address);
-                // System.out.println("Data de Nascimento:" + date);
-                // System.out.println("CPF:" + cpf);
-                // System.out.println("CNH:" + cnh);
-                // System.out.println("CC:" + creditCard);
-                // System.out.println("Necessidades Especiais:" + specialNeeds);
-            }
-        } else {
+        // jeito mais facil de lidar com usuarios que nao existem
+        // eh utilizar uma variavel booleana
+        // apesar de ser ma pratica, funciona
+        // TODO: refatorar futuramente
+        // APARENTEMENTE, rs.first() faz o iterador andar pra frente quando nao queremos
+        boolean clienteExists = false;
+
+        // pelo menos um cliente existe
+        while(rs.next()) {
+            clienteExists = true;
+            name = rs.getString("nome");
+            String address = rs.getString("endereco");
+            String date = rs.getString("data");
+            cpf = rs.getString("cpf");
+            cnh = rs.getString("cnh");
+            String creditCard = rs.getString("cc");
+            String specialNeeds = rs.getInt("necessidadesEspeciais") == 1 ? "Sim" : "Nao";
+            String dataDeCadastro = rs.getString("dataDeCriacao");
+
+            // front end (bleh)
+            LabelErro.setVisible(false);
+            LabelNome.setVisible(true);
+            LabelNome.setText("Nome: " + name);
+            LabelCPF.setVisible(true);
+            LabelCPF.setText("CPF: " + cpf);
+            LabelCNH.setVisible(true);
+            LabelCNH.setText("CNH: " + cnh);
+            LabelEndereco.setVisible(true);
+            LabelEndereco.setText("Endereço: " + address);
+            LabelNascimento.setVisible(true);
+            LabelNascimento.setText("Data de Nascimento: " + date);
+            LabelCartao.setVisible(true);
+            LabelCartao.setText("Cartão: " + creditCard);
+            LabelNecessidadesEspeciais.setVisible(true);
+            LabelNecessidadesEspeciais.setText("Necessidades especiais: " + specialNeeds);
+            LabelDataDeCadastro.setVisible(true);
+            LabelDataDeCadastro.setText("Data de Cadastro: " + dataDeCadastro);
+
+            System.out.println("Nome:" + name);
+            System.out.println("Endereco:" + address);
+            System.out.println("Data de Nascimento:" + date);
+            System.out.println("CPF:" + cpf);
+            System.out.println("CNH:" + cnh);
+            System.out.println("CC:" + creditCard);
+            System.out.println("Necessidades Especiais:" + specialNeeds);
+        }
+        
+        if(!clienteExists) {
             // cliente nao existe
             LabelNome.setVisible(false);
             LabelCPF.setVisible(false);
