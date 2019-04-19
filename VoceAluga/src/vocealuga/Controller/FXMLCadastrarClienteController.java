@@ -21,7 +21,7 @@ import vocealuga.Model.Cliente;
  * @author avellar
  * @author leo
  */
-public class FXMLCadastrarController implements Initializable {
+public class FXMLCadastrarClienteController implements Initializable {
 
     // Cliente variables being passed via FXML
     @FXML
@@ -51,15 +51,21 @@ public class FXMLCadastrarController implements Initializable {
     
     @FXML
     private void handleCadastrar(ActionEvent event) throws SQLException {
+        // Remove espaços no início e fim das strings de nome e endereço
         String name = TFNome.getText().trim();
         String address = TFEndereco.getText().trim();
+        // Remove todos os espaços da string de cartão
         String creditCard = TFCC.getText().replaceAll(" ", "");
+        // Substitui '-' por '/' na strng de data
         String date = TFData.getText().trim().replaceAll("-", "/");
+        // Remove ' ', '.' e '-' da string de CPF
         String cpf = TFCPF.getText().replaceAll("[ \\.-]", "");
+        // Remove todos os espaços da string de CNH
         String cnh = TFCNH.getText().replaceAll(" ", "");
+
         int specialNeeds = CBSpecialNeeds.isSelected() ? 1 : 0;
         
-
+        /* TODO: Padronizar mensagem de erro e mostrá-la ao usuário */
         if(name.isEmpty()){
             System.out.println("Insira o nome");
         }
@@ -124,21 +130,24 @@ public class FXMLCadastrarController implements Initializable {
     }    
         
     public boolean validateCC(String cc) {
+        // Se o tamanho do número for diferente de 16, ou se a string conter
+        // algum caractere que não é um algarismo, é inválido
         if(cc.length() != 16 || cc.replaceAll("[^0-9]", "_").contains("_"))
             return false;
+        // Senão, é válido
         return true;
     }
     
     public static boolean validateCPF(String CPF) {
-        // considera-se erro CPF's formados por uma sequencia de numeros iguais
-        if (CPF.equals("00000000000") ||
-            CPF.equals("11111111111") ||
-            CPF.equals("44444444444") || CPF.equals("55555555555") ||
-            CPF.equals("66666666666") || CPF.equals("77777777777") ||
-            CPF.equals("88888888888") || CPF.equals("99999999999") ||
-            (CPF.length() != 11))
+        // Se a string recebida tem um tamanho diferente de 11, não pode ser um
+        // número de CPF válido
+        if(CPF.length() != 11)
             return false;
-        if(CPF.length() != 11) return false;
+
+        // CPFs formados por uma sequência de números iguais são inválidos
+        /* TODO: Testar se isso funciona */
+        if(CPF.matches("^(.)\\1*$"))
+            return false;
 
         char dig10, dig11;
         int sm, i, r, num, peso;
@@ -180,7 +189,7 @@ public class FXMLCadastrarController implements Initializable {
             if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10)))
                  return true;
             else return false;
-        } catch (InputMismatchException erro) {
+        } catch (InputMismatchException e) {
             return false;
         }
     }

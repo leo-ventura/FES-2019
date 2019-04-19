@@ -20,34 +20,40 @@ import javafx.stage.Stage;
 public class FXMLMenuController implements Initializable {
 
     Stage secondaryWindow = new Stage();
-
-    @FXML
-    private void openCadastrar(ActionEvent event) throws ClassNotFoundException, IOException {
+    
+    private void openSecondaryWindow(String file, String title) {
         try {
-            URL url = new File("src/vocealuga/View/FXMLCadastrar.fxml").toURI().toURL();
-            Parent vCadastrar = FXMLLoader.load(url);
-            secondaryWindow.setTitle("Cadastrar Cliente – Você-Aluga");
-            Scene sceneBuscar = new Scene(vCadastrar);
-            secondaryWindow.setScene(sceneBuscar);
+            // Pega o path do arquivo .fxml a ser usado
+            URL url = new File("src/vocealuga/View/" + file + ".fxml").toURI().toURL();
+            // Carrega o arquivo (usando seu path)
+            Parent view_file = FXMLLoader.load(url);
+            // Define o título da janela a ser aberta
+            secondaryWindow.setTitle(title + " – Você-Aluga");
+            // Cria uma "cena" para conter a janela
+            Scene secondaryScene = new Scene(view_file);
+            secondaryWindow.setScene(secondaryScene);
+            // Desabilita o redimensionamento da janela
             secondaryWindow.setResizable(false);
+            // Abre a janela para o usuário
             secondaryWindow.show();
         } catch(IOException e) {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void openCadastrarCliente(ActionEvent event) throws ClassNotFoundException, IOException {
+        openSecondaryWindow("FXMLCadastrarCliente", "Cadastrar Cliente");
+    }   
+
+    @FXML
+    private void openCadastrarVeiculo(ActionEvent event) {
+        openSecondaryWindow("FXMLCadastrarVeiculo", "Cadastrar Veículo");
+    }
+
     @FXML
     private void openBuscar(ActionEvent event) throws ClassNotFoundException, IOException {
-        try {
-            URL url = new File("src/vocealuga/View/FXMLBuscar.fxml").toURI().toURL();
-            Parent vCadastrar = FXMLLoader.load(url);
-            secondaryWindow.setTitle("Buscar – Você-Aluga");
-            Scene sceneBuscar = new Scene(vCadastrar);
-            secondaryWindow.setScene(sceneBuscar);
-            secondaryWindow.setResizable(false);
-            secondaryWindow.show();
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
+        openSecondaryWindow("FXMLBuscar", "Buscar");
     }
 
     @Override
