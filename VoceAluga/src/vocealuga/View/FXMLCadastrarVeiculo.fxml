@@ -8,7 +8,7 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="vocealuga.Controller.FXMLCadastrarVeiculoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="412.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vocealuga.Controller.FXMLCadastrarVeiculoController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Marca" AnchorPane.leftAnchor="14.0" />
       <TextField layoutX="14.0" layoutY="31.0" prefHeight="25.0" prefWidth="185.0" promptText="Tesla" AnchorPane.leftAnchor="14.0" />
@@ -23,9 +23,9 @@
       <Separator layoutX="106.0" layoutY="122.0" prefWidth="200.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
       <Label disable="true" layoutX="14.0" layoutY="134.0" text="Se está alugado / reservado" />
       <Label layoutX="213.0" layoutY="155.0" text="Data de início" AnchorPane.leftAnchor="213.0" />
-      <TextField layoutX="213.0" layoutY="172.0" prefHeight="25.0" prefWidth="185.0" promptText="31/02/1900" AnchorPane.rightAnchor="14.0" />
+      <TextField layoutX="213.0" layoutY="172.0" prefHeight="25.0" prefWidth="185.0" promptText="31/02/1900" AnchorPane.leftAnchor="213.0" />
       <Label layoutX="213.0" layoutY="203.0" text="Data de término" AnchorPane.leftAnchor="213.0" />
-      <TextField layoutX="213.0" layoutY="220.0" prefHeight="25.0" prefWidth="185.0" promptText="31/02/1901" AnchorPane.rightAnchor="14.0" />
+      <TextField layoutX="213.0" layoutY="220.0" prefHeight="25.0" prefWidth="185.0" promptText="31/02/1901" AnchorPane.leftAnchor="213.0" />
       <RadioButton layoutX="50.0" layoutY="210.0" mnemonicParsing="false" selected="true" text="Livre" AnchorPane.leftAnchor="50.0">
          <toggleGroup>
             <ToggleGroup fx:id="type" />
@@ -33,7 +33,7 @@
       </RadioButton>
       <RadioButton layoutX="50.0" layoutY="233.0" mnemonicParsing="false" text="Alugado" toggleGroup="$type" AnchorPane.leftAnchor="50.0" />
       <RadioButton layoutX="50.0" layoutY="256.0" mnemonicParsing="false" text="Reservado" toggleGroup="$type" AnchorPane.leftAnchor="50.0" />
-      <Button fx:id="buttonCancel" alignment="CENTER" contentDisplay="CENTER" layoutX="55.0" layoutY="188.0" text="Cancelar" onAction="#handleClose" textAlignment="RIGHT" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
+      <Button fx:id="buttonCancel" alignment="CENTER" contentDisplay="CENTER" layoutX="55.0" layoutY="188.0" onAction="#handleClose" text="Cancelar" textAlignment="RIGHT" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
       <Button fx:id="buttonSave" alignment="CENTER" contentDisplay="CENTER" layoutX="272.0" layoutY="188.0" text="Salvar veículo" textAlignment="RIGHT" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
    </children>
 </AnchorPane>
