@@ -145,7 +145,6 @@ public class FXMLCadastrarClienteController implements Initializable {
             return false;
 
         // CPFs formados por uma sequência de números iguais são inválidos
-        /* TODO: Testar se isso funciona */
         if(CPF.matches("^(.)\\1*$"))
             return false;
 
