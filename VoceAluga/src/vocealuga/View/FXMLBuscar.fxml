@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vocealuga.Controller.FXMLBuscarController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vocealuga.Controller.FXMLBuscarController">
    <children>
       <Label layoutX="14.0" layoutY="19.0" text="Buscar cliente..." AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
       <Label layoutX="14.0" layoutY="49.0" text="Por nome:" AnchorPane.leftAnchor="14.0" />
@@ -26,6 +29,7 @@
       <Label fx:id="LabelCartao" disable="true" layoutX="314.0" layoutY="122.0" text="Cartão: " AnchorPane.leftAnchor="314.0" />
       <Label fx:id="LabelNecessidadesEspeciais" disable="true" layoutX="314.0" layoutY="144.0" text="Necessidades Especiais: " AnchorPane.leftAnchor="314.0" />
       <Label fx:id="LabelDataDeCadastro" disable="true" layoutX="314.0" layoutY="166.0" text="Data de Cadastro: " AnchorPane.leftAnchor="314.0" />
+      <Button alignment="CENTER" layoutX="11.0" layoutY="158.0" mnemonicParsing="false" onAction="#removeCliente" text="Remover" textAlignment="CENTER" />
       
 
       
