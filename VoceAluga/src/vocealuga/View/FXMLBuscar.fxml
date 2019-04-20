@@ -20,7 +20,7 @@
       <TextField fx:id="TFBuscarCNH" layoutX="135.0" layoutY="107.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="000 111 222 33" AnchorPane.leftAnchor="135.0" />
       <Button fx:id="ButtonBuscar" alignment="CENTER" layoutX="233.0" layoutY="273.0" mnemonicParsing="false" onAction="#handleBuscar" text="Buscar" textAlignment="RIGHT" AnchorPane.bottomAnchor="14.0" />
       <Separator layoutX="297.0" layoutY="10.0" orientation="VERTICAL" prefHeight="292.0" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <Label fx:id="LabelErro" layoutX="14.0" layoutY="185.0" textFill="#ff0000" visible="false" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
+      <Label fx:id="LabelErro" layoutX="14.0" layoutY="140.0" textFill="#ff0000" visible="false" AnchorPane.leftAnchor="14.0" />
       <Label fx:id="LabelNome" disable="true" layoutX="314.0" layoutY="12.0" text="Nome: " AnchorPane.leftAnchor="314.0" />
       <Label fx:id="LabelCPF" disable="true" layoutX="314.0" layoutY="34.0" text="CPF: " AnchorPane.leftAnchor="314.0" />
       <Label fx:id="LabelCNH" disable="true" layoutX="314.0" layoutY="56.0" text="CNH: " AnchorPane.leftAnchor="314.0" />
@@ -29,7 +29,7 @@
       <Label fx:id="LabelCartao" disable="true" layoutX="314.0" layoutY="122.0" text="Cartão: " AnchorPane.leftAnchor="314.0" />
       <Label fx:id="LabelNecessidadesEspeciais" disable="true" layoutX="314.0" layoutY="144.0" text="Necessidades Especiais: " AnchorPane.leftAnchor="314.0" />
       <Label fx:id="LabelDataDeCadastro" disable="true" layoutX="314.0" layoutY="166.0" text="Data de Cadastro: " AnchorPane.leftAnchor="314.0" />
-      <Button alignment="CENTER" layoutX="11.0" layoutY="158.0" mnemonicParsing="false" onAction="#removeCliente" text="Remover" textAlignment="CENTER" />
+      <Button alignment="CENTER" layoutX="11.0" layoutY="158.0" mnemonicParsing="false" onAction="#removeCliente" text="Remover" textAlignment="CENTER" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="11.0" />
       
 
       
