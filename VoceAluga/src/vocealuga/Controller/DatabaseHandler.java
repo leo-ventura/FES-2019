@@ -22,7 +22,7 @@ public class DatabaseHandler {
             String remoteIP = System.getenv("MYSQL_REMOTE_IP");
             String databaseUser = System.getenv("MYSQL_REMOTE_USER");
             String databasePassword = System.getenv("MYSQL_REMOTE_PASSWORD");
-                    
+
             // loading driver
             Class.forName("com.mysql.cj.jdbc.Driver");            
             
