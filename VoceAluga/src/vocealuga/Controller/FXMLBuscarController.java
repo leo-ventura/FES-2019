@@ -1,4 +1,4 @@
-package vocealuga.Controller;
+ package vocealuga.Controller;
 
 // importing sql lib
 import com.mysql.cj.jdbc.exceptions.CommunicationsException;
@@ -21,8 +21,8 @@ import vocealuga.Model.Cliente;
  * @author avellar
  */
 
-public class FXMLBuscarController implements Initializable {
-
+public class FXMLBuscarController implements Initializable {    
+    
     // Cliente variables being passed via FXML
     @FXML
     private TextField TFBuscarNome;
@@ -168,6 +168,27 @@ public class FXMLBuscarController implements Initializable {
 
         // Reativa o botão para próximas buscas
         ButtonBuscar.setDisable(false);
+    }
+    
+    @FXML
+    private void removeCliente(ActionEvent event) throws ClassNotFoundException, SQLException {
+        // inicializando outro handler para database
+        // database pode ter mudado de estado desde a ultima interacao
+        // de cadastro ou remocao
+        // Pros: garante que sempre teremos um estado da database atualizado
+        // Contras: varias conexoes podem acabar sendo abertas, congestionando
+        // o banco de dados
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        
+        // Pegando o CPF do Cliente a ser removido
+        // Como o CPF eh um dado unico, podemos remover usando apenas ele
+        // como parametro para a query
+        String cpf = TFBuscarCPF.getText();
+        
+        dbHandler.removeCliente(cpf);
+        
+        // Encerra a conexão com o banco de dados
+        dbHandler.close();
     }
 
     @Override

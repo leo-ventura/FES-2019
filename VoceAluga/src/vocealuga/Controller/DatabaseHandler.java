@@ -2,6 +2,7 @@ package vocealuga.Controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -46,6 +47,7 @@ public class DatabaseHandler {
     }
     
     public ResultSet fetchClienteInfo(Cliente cliente) throws SQLException {
+        // todo: funcao pode ser melhorada usando PreparedStatement
         // procurando primeiro por dados que, em teoria, sao unicos:
         // cpf, cnh
         // depois procuramos por dados que talvez nao sejam unicos e, consequentemente,
@@ -76,6 +78,21 @@ public class DatabaseHandler {
     
     public ResultSet checkCPF(String cpf) throws SQLException {
         return query("select cpf from VoceAluga.Cliente where cpf = \"" + cpf + "\";");
+    }
+    
+    public void removeCliente(String cpf) throws SQLException {
+        String query = "delete from VoceAluga.Cliente where cpf = ?";
+        
+        System.out.println("removing Cliente identified by cpf: " + cpf);
+        PreparedStatement preparedStmt = connection.prepareStatement(query);
+        preparedStmt.setString(1, cpf);
+        
+        // preparedStmt.executeUpdate() retorna a quantidade de linhas modificadas
+        // System.out.println(preparedStmt.executeUpdate());
+        if(preparedStmt.executeUpdate() > 0)
+            System.out.println("Cliente removido com sucesso!");
+        else
+            System.out.println("Nao foi possivel remover tal cliente");
     }
     
     public int insertIntoClienteTable(String values) throws SQLException {
