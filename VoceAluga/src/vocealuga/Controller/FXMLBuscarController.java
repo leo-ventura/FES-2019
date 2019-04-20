@@ -66,6 +66,7 @@ public class FXMLBuscarController implements Initializable {
         try {
             // Busca pelas informações no banco de dados
             dbHandler = new DatabaseHandler();
+
             rs = dbHandler.fetchClienteInfo(
                 new Cliente(name, cpf, cnh)
             );
