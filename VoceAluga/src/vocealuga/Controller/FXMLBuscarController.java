@@ -1,4 +1,4 @@
- package vocealuga.Controller;
+package vocealuga.Controller;
 
 // importing sql lib
 import com.mysql.cj.jdbc.exceptions.CommunicationsException;

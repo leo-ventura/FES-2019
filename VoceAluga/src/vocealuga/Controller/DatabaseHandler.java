@@ -52,28 +52,41 @@ public class DatabaseHandler {
         // cpf, cnh
         // depois procuramos por dados que talvez nao sejam unicos e, consequentemente,
         // podem nao retornar apenas um resultado
-        String query = "select * from VoceAluga.Cliente where ";
+        String query = "select * from VoceAluga.Cliente where ? = ?";
+        PreparedStatement preparedStmt = connection.prepareStatement(query);
         String endQuery = "\";";
         if(!cliente.getCPF().equals("")) {
-            query += "cpf = \"" + cliente.getCPF() + endQuery;
+            preparedStmt.setString(1, "cpf");
+            preparedStmt.setString(2, cliente.getCPF());
+//            query += "cpf = \"" + cliente.getCPF() + endQuery;
         }
         else if(!cliente.getCNH().equals("")) {
-            query += "cnh = \"" + cliente.getCNH() + endQuery;
+            preparedStmt.setString(1, "cnh");
+            preparedStmt.setString(2, cliente.getCNH());
+//            query += "cnh = \"" + cliente.getCNH() + endQuery;
         }
         else if(!cliente.getNome().equals("")) {
-            query += "nome = \"" + cliente.getNome() + endQuery;
+            preparedStmt.setString(1, "nome");
+            preparedStmt.setString(2, cliente.getNome());
+//            query += "nome = \"" + cliente.getNome() + endQuery;
         }
         else if(!cliente.getData().equals("")) {
-            query += "data = \"" + cliente.getData() + endQuery;
+            preparedStmt.setString(1, "data");
+            preparedStmt.setString(2, cliente.getData());
+//            query += "data = \"" + cliente.getData() + endQuery;
         }
         else if(!cliente.getCC().equals("")) {
-            query += "cc = \"" + cliente.getCC() + endQuery;
+            preparedStmt.setString(1, "cc");
+            preparedStmt.setString(2, cliente.getCC());
+//            query += "cc = \"" + cliente.getCC() + endQuery;
         }
         else if(!cliente.getEndereco().equals("")) {
-            query += "endereco = \"" + cliente.getEndereco() + endQuery;
+            preparedStmt.setString(1, "endereco");
+            preparedStmt.setString(2, cliente.getEndereco());
+//            query += "endereco = \"" + cliente.getEndereco() + endQuery;
         }
         
-        return query(query);
+        return preparedStmt.executeQuery();
     }
     
     public ResultSet checkCPF(String cpf) throws SQLException {
