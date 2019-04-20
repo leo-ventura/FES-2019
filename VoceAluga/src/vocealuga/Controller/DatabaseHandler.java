@@ -52,40 +52,27 @@ public class DatabaseHandler {
         // cpf, cnh
         // depois procuramos por dados que talvez nao sejam unicos e, consequentemente,
         // podem nao retornar apenas um resultado
-        String query = "select * from VoceAluga.Cliente where ? = ?";
-        PreparedStatement preparedStmt = connection.prepareStatement(query);
-        String endQuery = "\";";
+        String query = "select * from VoceAluga.Cliente where ";
+        String target = "";
         if(!cliente.getCPF().equals("")) {
-            preparedStmt.setString(1, "cpf");
-            preparedStmt.setString(2, cliente.getCPF());
-//            query += "cpf = \"" + cliente.getCPF() + endQuery;
+            query += "cpf = ?";
+            target = cliente.getCPF();
         }
         else if(!cliente.getCNH().equals("")) {
-            preparedStmt.setString(1, "cnh");
-            preparedStmt.setString(2, cliente.getCNH());
-//            query += "cnh = \"" + cliente.getCNH() + endQuery;
+            query += "cnh = ?";
+            target = cliente.getCNH();
         }
         else if(!cliente.getNome().equals("")) {
-            preparedStmt.setString(1, "nome");
-            preparedStmt.setString(2, cliente.getNome());
-//            query += "nome = \"" + cliente.getNome() + endQuery;
-        }
-        else if(!cliente.getData().equals("")) {
-            preparedStmt.setString(1, "data");
-            preparedStmt.setString(2, cliente.getData());
-//            query += "data = \"" + cliente.getData() + endQuery;
-        }
-        else if(!cliente.getCC().equals("")) {
-            preparedStmt.setString(1, "cc");
-            preparedStmt.setString(2, cliente.getCC());
-//            query += "cc = \"" + cliente.getCC() + endQuery;
-        }
-        else if(!cliente.getEndereco().equals("")) {
-            preparedStmt.setString(1, "endereco");
-            preparedStmt.setString(2, cliente.getEndereco());
-//            query += "endereco = \"" + cliente.getEndereco() + endQuery;
+            query += "nome = ?";
+            target = cliente.getNome();
+        } else {
+            // Nenhuma informacao foi provida, retornamos null
+            return null;
         }
         
+        PreparedStatement preparedStmt = connection.prepareStatement(query);
+        preparedStmt.setString(1, target);
+        System.out.println(preparedStmt);
         return preparedStmt.executeQuery();
     }
     

@@ -84,22 +84,17 @@ public class FXMLBuscarController implements Initializable {
             ButtonBuscar.setDisable(false);
             return;
         }
-        
-
-        // jeito mais facil de lidar com usuarios que nao existem
-        // eh utilizar uma variavel booleana
-        // apesar de ser ma pratica, funciona
-        /* TODO: refatorar futuramente */
-        // APARENTEMENTE, rs.first() faz o iterador andar pra frente quando nao queremos
-        boolean clienteExists = false;
 
         /* FIXME: while() faz ele pegar todos os clientes... Supondo CPF único,
          * não poderíamos simplemente usar um if()?
+         * Decisao: usaremos um if, pegando apenas o primeiro resultado,
+         * independente da quantidade de matches.
          */
-        while(rs.next()) {
-            // Existe pelo menos um cliente com os valores dados
-            clienteExists = true;
 
+        if(rs.first()) {
+            // Existe pelo menos um cliente com os valores dados
+
+            System.out.println("Cliente achado!");
             // Substitui as informações dadas pelo usuário pelas informações do
             // banco de dados, e pega o resto das informações
             name = rs.getString("nome");
@@ -133,7 +128,7 @@ public class FXMLBuscarController implements Initializable {
             LabelEndereco.setText("Endereço: " + address);
             LabelNascimento.setText("Data de Nascimento: " + date);
             LabelCartao.setText("Cartão: " + creditCard);
-            LabelNecessidadesEspeciais.setText("Possui ecessidades especiais: "
+            LabelNecessidadesEspeciais.setText("Possui Necessidades especiais: "
                                                 + specialNeeds);
             LabelDataDeCadastro.setText("Data de Cadastro: " + dataDeCadastro);
 
@@ -145,10 +140,8 @@ public class FXMLBuscarController implements Initializable {
             System.out.println("CNH: " + cnh);
             System.out.println("CC: " + creditCard);
             System.out.println("Necessidades Especiais: " + specialNeeds);
-        }
-        
-        // Se não existe cliente com os dados recebidos...
-        if(!clienteExists) {
+        } else {
+            // Se não existe cliente com os dados recebidos...
             // ...desativa novamente o texto...
             LabelNome.setDisable(true);
             LabelCPF.setDisable(true);
