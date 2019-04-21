@@ -1,7 +1,7 @@
 /* creating tables */
 CREATE TABLE Cliente (
-    CPF varchar(11),
-    CNH varchar(11),
+    CPF varchar(11) unique,
+    CNH varchar(11) unique,
     Nome varchar(255),
     Endereco varchar(255),
     CreditCard varchar(16),
@@ -24,22 +24,22 @@ CREATE TABLE Veiculos (
 
 /* inserting an example value */
 INSERT INTO Cliente (
-    nome,
-    endereco,
-    cc,
-    dataDeNascimento,
-    cpf,
-    cnh,
-    necessidadesEspeciais,
-    dataDeCadastro,
-    dataDeAlteracao
+    CPF,
+    CNH,
+    Nome,
+    Endereco,
+    CreditCard,
+    DataDeNascimento,
+    NecessidadesEspeciais,
+    DataDeCadastro,
+    DataDeAlteracao
 ) VALUES (
-    "João Ninguém da Silva",
-    "Rua dos Bobos, 0",
+    "12345678900",
+    "00011122233",
+    "Felipe Coll",
+    "Rua do Possato, 0",
     "1111 2222 3333 4444",
     "30/03/1999",
-    "12345678900",
-    "000 111 222 33",
     0,
     "20/04/2019",
     "20/04/2019"
