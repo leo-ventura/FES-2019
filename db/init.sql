@@ -1,18 +1,18 @@
 /* creating tables */
 CREATE TABLE Cliente (
-    ClienteId int not null auto_increment primary key,
+    CPF varchar(11),
+    CNH varchar(11),
     Nome varchar(255),
     Endereco varchar(255),
     CreditCard varchar(16),
     DataDeNascimento varchar(10),
-    CPF varchar(11),
-    CNH varchar(11),
     NecessidadesEspeciais tinyint(1) default null,
     DataDeCadastro varchar(10),
     DataDeAlteracao varchar(10)
 ) ENGINE=INNODB;
 
 CREATE TABLE Veiculos (
+    CPF varchar(11),
     foreign key (CPF) references Cliente (CPF),
     Modelo varchar(40),
     Marca varchar(40),
@@ -61,4 +61,4 @@ INSERT INTO Veiculos (
     "sp",
     "20/04/2019",
     "23/04/2019"
-)
+);
