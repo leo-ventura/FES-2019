@@ -27,6 +27,7 @@ public class Cliente {
     private int necessidadesEspeciais;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private LocalDate dataDeCadastro = LocalDate.now();
+    private LocalDate dataDeAlteracao = LocalDate.now();
     
     // simple constructor
     public Cliente() {
@@ -94,7 +95,8 @@ public class Cliente {
         this.cnh = cnh;
         this.necessidadesEspeciais = necessidadesEspeciais;
         this.dataDeCadastro = LocalDate.parse(dataDeCadastro, formatter);
-    
+        // dataDeAlteracao comecara igual a data de cadastro
+        this.dataDeAlteracao = LocalDate.parse(dataDeCadastro, formatter);
     }
 
 
@@ -183,7 +185,8 @@ public class Cliente {
                 midSeparator + this.cc + midSeparator + this.dataDeNascimento.format(formatter) +
                 midSeparator + this.cpf + midSeparator + this.cnh + midSeparator +
                 this.necessidadesEspeciais + midSeparator +
-                this.dataDeCadastro.format(formatter) + endingSeparator;
+                this.dataDeCadastro.format(formatter) + midSeparator +
+                this.dataDeAlteracao + endingSeparator;
     }
     
     public String toString() {

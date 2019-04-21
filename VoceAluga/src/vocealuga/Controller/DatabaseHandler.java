@@ -55,15 +55,15 @@ public class DatabaseHandler {
         String query = "select * from VoceAluga.Cliente where ";
         String target = "";
         if(!cliente.getCPF().equals("")) {
-            query += "cpf = ?";
+            query += "CPF = ?";
             target = cliente.getCPF();
         }
         else if(!cliente.getCNH().equals("")) {
-            query += "cnh = ?";
+            query += "CNH = ?";
             target = cliente.getCNH();
         }
         else if(!cliente.getNome().equals("")) {
-            query += "nome = ?";
+            query += "Nome = ?";
             target = cliente.getNome();
         } else {
             // Nenhuma informacao foi provida, retornamos null
@@ -77,13 +77,13 @@ public class DatabaseHandler {
     }
     
     public ResultSet checkCPF(String cpf) throws SQLException {
-        return query("select cpf from VoceAluga.Cliente where cpf = \"" + cpf + "\";");
+        return query("select CPF from VoceAluga.Cliente where CPF = \"" + cpf + "\";");
     }
     
     public void removeCliente(String cpf) throws SQLException {
-        String query = "delete from VoceAluga.Cliente where cpf = ?";
+        String query = "delete from VoceAluga.Cliente where CPF = ?";
         
-        System.out.println("removing Cliente identified by cpf: " + cpf);
+        System.out.println("removing Cliente identified by CPF: " + cpf);
         PreparedStatement preparedStmt = connection.prepareStatement(query);
         preparedStmt.setString(1, cpf);
         
@@ -96,7 +96,9 @@ public class DatabaseHandler {
     }
     
     public int insertIntoClienteTable(String values) throws SQLException {
-        String cmd = "insert into VoceAluga.Cliente (nome, endereco, cc, data, cpf, cnh, necessidadesEspeciais, dataDeCriacao) values "
+        String cmd = "insert into VoceAluga.Cliente (Nome, Endereco, CreditCard,"
+                + "DataDeNascimento, CPF, CNH, NecessidadesEspeciais, dataDeCadastro,"
+                + "DataDeAlteracao) values "
                 + values + ";";
         
 //        insert into Cliente (nome, endereco, cc, data, cpf, cnh, necessidades_especiais) values ("test", "end", "cc", "data", "cpf", "cnh", 1);
