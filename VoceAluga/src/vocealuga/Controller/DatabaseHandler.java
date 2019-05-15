@@ -97,7 +97,7 @@ public class DatabaseHandler {
     
     public int insertIntoClienteTable(String values) throws SQLException {
         String cmd = "insert into VoceAluga.Cliente (Nome, Endereco, CreditCard,"
-                + "DataDeNascimento, CPF, CNH, NecessidadesEspeciais, dataDeCadastro,"
+                + "DataDeNascimento, CPF, CNH, NecessidadesEspeciais, DataDeCadastro,"
                 + "DataDeAlteracao) values "
                 + values + ";";
         

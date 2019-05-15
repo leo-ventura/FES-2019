@@ -94,19 +94,20 @@ public class FXMLBuscarController implements Initializable {
         if(rs.first()) {
             // Existe pelo menos um cliente com os valores dados
 
-            System.out.println("Cliente achado!");
+            System.out.println("Cliente encontrado!");
             // Substitui as informações dadas pelo usuário pelas informações do
             // banco de dados, e pega o resto das informações
-            name = rs.getString("nome");
-            String address = rs.getString("endereco");
-            String date = rs.getString("data");
-            cpf = rs.getString("cpf");
-            cnh = rs.getString("cnh");
-            String creditCard = rs.getString("cc");
-            String specialNeeds = (rs.getInt("necessidadesEspeciais") == 1)
+            name = rs.getString("Nome");
+            String address = rs.getString("Endereco");
+            String date = rs.getString("DataDeNascimento");
+            cpf = rs.getString("CPF");
+            cnh = rs.getString("CNH");
+            String creditCard = rs.getString("CreditCard");
+            String specialNeeds = (rs.getInt("NecessidadesEspeciais") == 1)
                     ? "Sim"
                     : "Não";
-            String dataDeCadastro = rs.getString("dataDeCriacao");
+            String dataDeCadastro = rs.getString("DataDeCadastro");
+            String dataDeAlteracao = rs.getString("DataDeAlteracao");
 
             // Retira possíveis erros recebidos em buscas anteriores
             LabelErro.setVisible(false);
