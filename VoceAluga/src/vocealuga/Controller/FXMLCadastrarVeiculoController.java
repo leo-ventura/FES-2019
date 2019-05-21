@@ -1,6 +1,8 @@
 package vocealuga.Controller;
 
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,7 +69,7 @@ public class FXMLCadastrarVeiculoController implements Initializable {
     }
     
     @FXML
-    private void handleCadastrar(ActionEvent event){
+    private void handleCadastrar(ActionEvent event) throws ClassNotFoundException, SQLException {
         int LIVRE = 1;
         int ALUGADO = 2;
         int RESERVADO = 3;
@@ -78,9 +80,18 @@ public class FXMLCadastrarVeiculoController implements Initializable {
         String placa = TFPlaca.getText().trim();
         int status = buttonLivre.isSelected()? LIVRE : buttonAlugado.isSelected()? ALUGADO : RESERVADO;
         
-        Veiculo teste = new Veiculo(marca, modelo, grupo, placa);
-        System.out.println("Veiculo: " + teste);
-        System.out.println("Satus: " + status);
+        Veiculo veiculo = new Veiculo(marca, modelo, grupo, placa);
+        
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        
+        if(dbHandler.cadastrarVeiculo(veiculo)) {
+            // caso exista pelo menos uma linha de resposta a query
+            
+            
+        }
+        
+        System.out.println("Veiculo: " + veiculo);
+        System.out.println("Status: " + status);
         
     }
 

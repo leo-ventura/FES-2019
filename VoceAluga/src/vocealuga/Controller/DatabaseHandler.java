@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import vocealuga.Model.Cliente;
+import vocealuga.Model.Veiculo;
 
 /**
  *
@@ -105,6 +106,14 @@ public class DatabaseHandler {
         Statement stmt = connection.createStatement();
         System.out.println(cmd);
         return stmt.executeUpdate(cmd);
+    }
+    
+    public boolean cadastrarVeiculo(Veiculo veiculo) {
+        String query = "insert into ";
+        PreparedStatement preparedStmt = connection.prepareStatement(query);
+        preparedStmt.setString(1, target);
+        ResultSet rs = preparedStmt.executeQuery();
+        if()
     }
     
     public void close() throws SQLException {
