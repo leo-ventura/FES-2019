@@ -2,11 +2,16 @@ package vocealuga.Controller;
 
 import java.net.URL;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.sql.ResultSet;
 import java.sql.SQLException;
 =======
 import java.util.InputMismatchException;
 >>>>>>> cadastro-de-veiculo
+=======
+import java.sql.ResultSet;
+import java.sql.SQLException;
+>>>>>>> 193e3332faeff6fc64a76b5ef26685786c997409
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -77,6 +82,9 @@ public class FXMLCadastrarVeiculoController implements Initializable {
     
     @FXML
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 193e3332faeff6fc64a76b5ef26685786c997409
     private void handleCadastrar(ActionEvent event) throws ClassNotFoundException, SQLException {
         int LIVRE = 1;
 =======
@@ -96,6 +104,9 @@ public class FXMLCadastrarVeiculoController implements Initializable {
         int status = buttonLivre.isSelected()? LIVRE : buttonAlugado.isSelected()? ALUGADO : RESERVADO;
         
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 193e3332faeff6fc64a76b5ef26685786c997409
         Veiculo veiculo = new Veiculo(marca, modelo, grupo, placa);
         
         DatabaseHandler dbHandler = new DatabaseHandler();
@@ -108,6 +119,7 @@ public class FXMLCadastrarVeiculoController implements Initializable {
         
         System.out.println("Veiculo: " + veiculo);
         System.out.println("Status: " + status);
+<<<<<<< HEAD
 =======
         //se o status for LIVRE, cpf e datas são null
         if (status == LIVRE){
@@ -205,6 +217,8 @@ public class FXMLCadastrarVeiculoController implements Initializable {
         
         
 >>>>>>> cadastro-de-veiculo
+=======
+>>>>>>> 193e3332faeff6fc64a76b5ef26685786c997409
         
     }
 
