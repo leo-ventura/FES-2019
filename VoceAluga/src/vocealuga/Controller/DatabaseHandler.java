@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import vocealuga.Model.Cliente;
+import vocealuga.Model.Veiculo;
 
 /**
  *
