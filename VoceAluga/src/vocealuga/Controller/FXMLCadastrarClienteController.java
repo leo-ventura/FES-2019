@@ -4,6 +4,8 @@ package vocealuga.Controller;
 import java.sql.*;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -11,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -38,6 +41,8 @@ public class FXMLCadastrarClienteController implements Initializable {
     private TextField TFCNH;
     @FXML
     private CheckBox CBSpecialNeeds;
+    @FXML
+    private Label LabelError;
     
     @FXML
     private Button buttonCancel;
@@ -62,32 +67,50 @@ public class FXMLCadastrarClienteController implements Initializable {
         String cpf = TFCPF.getText().replaceAll("[ \\.-]", "");
         // Remove todos os espaços da string de CNH
         String cnh = TFCNH.getText().replaceAll(" ", "");
+        
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         int specialNeeds = CBSpecialNeeds.isSelected() ? 1 : 0;
         
         /* TODO: Padronizar mensagem de erro e mostrá-la ao usuário */
         if(name.isEmpty()){
-            System.out.println("Insira o nome");
+            //System.out.println("Insira o nome");
+            LabelError.setVisible(true);
+            LabelError.setText("Insira o nome");
         }
         else if(address.isEmpty()){
-            System.out.println("Insira o endereço");
+            //System.out.println("Insira o endereço");
+            LabelError.setVisible(true);
+            LabelError.setText("Insira o endereço");
         }
         else if(!validateCC(creditCard)){
-            System.out.println("Insira um cartão de crédito válido");
+            //System.out.println("Insira um cartão de crédito válido");
+            LabelError.setVisible(true);
+            LabelError.setText("Insira um cartão de crédito válido");
         }
         else if(date.isEmpty()){
-            System.out.println("Insira a data de nascimento");
+            //System.out.println("Insira a data de nascimento");
+            LabelError.setVisible(true);
+            LabelError.setText("Insira a data de nascimento");
         }
         else if(cpf.isEmpty()){
-            System.out.println("Insira o CPF");
+            //System.out.println("Insira o CPF");
+            LabelError.setVisible(true);
+            LabelError.setText("Insira o CPF");
         }
         else if (!validateCPF(cpf)){
-            System.out.println("CPF invalido");
+            //System.out.println("CPF invalido");
+            LabelError.setVisible(true);
+            LabelError.setText("CPF inválido");
         }
         else if(cnh.isEmpty()){
-            System.out.println("Insira a CNH");
+            //System.out.println("Insira a CNH");
+            LabelError.setVisible(true);
+            LabelError.setText("Insira a CNH");
         }
         else {
+            LabelError.setVisible(false);
             try {
                 Cliente cliente = new Cliente(name, address, creditCard, date,
                                         cpf, cnh, specialNeeds);
@@ -102,9 +125,9 @@ public class FXMLCadastrarClienteController implements Initializable {
 
                 System.out.println("rs.first(): " + rs.first());
                 if(rs.first()) {
-                    System.out.println("The provided CPF is already in use!");
-                    // TODO: Add an alert telling that to the user
-                    // CC: @avellar
+                    //System.out.println("The provided CPF is already in use!");
+                    LabelError.setVisible(true);
+                    LabelError.setText("CPF já está em uso");
                 } else {
 
                     String clienteValues = cliente.formatToInsert();
@@ -112,6 +135,15 @@ public class FXMLCadastrarClienteController implements Initializable {
 
                     int r = dbHandler.insertIntoClienteTable(clienteValues);
                     System.out.println("Values have been inserted!\n" + r);
+                    TFNome.setText("");
+                    TFCNH.setText("");
+                    TFCC.setText("");
+                    TFCPF.setText("");
+                    TFData.setText("");
+                    TFEndereco.setText("");
+                    
+                    LabelError.setVisible(true);
+                    LabelError.setText("Cliente cadastrado com sucesso!");
                 }
 
                 // closing connection
@@ -120,6 +152,8 @@ public class FXMLCadastrarClienteController implements Initializable {
                 System.out.println(cliente);
             } catch (Exception e){
                 System.out.println(e.getMessage());
+                LabelError.setVisible(true);
+                LabelError.setText("Data de nascimento inválida");
             }
         }        
     }

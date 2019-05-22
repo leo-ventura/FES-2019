@@ -72,3 +72,9 @@ local.properties
 
 # Java annotation processor (APT)
 .factorypath
+.idea/FES-2019.iml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+VoceAluga/nbproject/build-impl.xml
+VoceAluga/nbproject/genfiles.properties

@@ -25,6 +25,7 @@
       <Label layoutX="213.0" layoutY="155.0" text="Data de início" AnchorPane.leftAnchor="213.0" />
       <TextField fx:id="TFDataInicio" disable="true" layoutX="213.0" layoutY="172.0" prefHeight="25.0" prefWidth="185.0" promptText="31/02/1900" AnchorPane.leftAnchor="213.0" />
       <Label layoutX="213.0" layoutY="203.0" text="Data de término" AnchorPane.leftAnchor="213.0" />
+      <Label fx:id="LabelErro" layoutX="213.0" layoutY="280.0" visible="false" text="Mensagem de Erro" textFill="#ff0000" AnchorPane.leftAnchor="213.0" />
       <TextField fx:id="TFDataTermino" disable="true" layoutX="213.0" layoutY="220.0" prefHeight="25.0" prefWidth="185.0" promptText="31/02/1901" AnchorPane.leftAnchor="213.0" />
       <RadioButton fx:id="buttonLivre" layoutX="50.0" layoutY="210.0" mnemonicParsing="false" selected="true" onAction="#handleDesabilitar" text="Livre" AnchorPane.leftAnchor="50.0">
          <toggleGroup>

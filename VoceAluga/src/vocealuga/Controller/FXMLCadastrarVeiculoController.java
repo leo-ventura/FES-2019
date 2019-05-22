@@ -1,12 +1,14 @@
 package vocealuga.Controller;
 
 import java.net.URL;
+import java.util.InputMismatchException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -43,6 +45,8 @@ public class FXMLCadastrarVeiculoController implements Initializable {
     private TextField TFDataInicio;
     @FXML
     private TextField TFDataTermino;
+    @FXML
+    private Label LabelErro;
     
 
     @FXML
@@ -68,24 +72,174 @@ public class FXMLCadastrarVeiculoController implements Initializable {
     
     @FXML
     private void handleCadastrar(ActionEvent event){
-        int LIVRE = 1;
+        int LIVRE = 0;
+        int RESERVADO = 1;
         int ALUGADO = 2;
-        int RESERVADO = 3;
         
         String marca = TFMarca.getText().trim();
         String modelo = TFModelo.getText().trim();
         String grupo = TFGrupo.getText().trim();
         String placa = TFPlaca.getText().trim();
+        String cpf;
+        String dataInicio;
+        String dataTermino;
         int status = buttonLivre.isSelected()? LIVRE : buttonAlugado.isSelected()? ALUGADO : RESERVADO;
         
-        Veiculo teste = new Veiculo(marca, modelo, grupo, placa);
-        System.out.println("Veiculo: " + teste);
-        System.out.println("Satus: " + status);
+        //se o status for LIVRE, cpf e datas são null
+        if (status == LIVRE){
+            cpf = null;
+            dataInicio = null;
+            dataTermino = null;
+        }
+        //caso contrario, seta cpf e datas
+        else {
+            cpf = TFCPF.getText().trim();
+            dataInicio = TFDataInicio.getText().trim();
+            dataTermino = TFDataTermino.getText().trim();
+        }
+        
+        //TODO inserir verificacao dos campos
+        if (marca.isEmpty()){
+            LabelErro.setVisible(true);
+            LabelErro.setText("Insira a marca");
+        }
+        else if (modelo.isEmpty()){
+            LabelErro.setVisible(true);
+            LabelErro.setText("Insira o modelo");
+        }
+        else if (grupo.isEmpty()){
+            LabelErro.setVisible(true);
+            LabelErro.setText("Insira o grupo");
+        }
+        else if (placa.isEmpty()){
+            LabelErro.setVisible(true);
+            LabelErro.setText("Insira a placa");
+        }
+        else if (status != LIVRE && cpf.isEmpty()){
+            LabelErro.setVisible(true);
+            LabelErro.setText("Insira o cpf");
+        }
+        else if (status != LIVRE && !validateCPF(cpf)){
+            LabelErro.setVisible(true);
+            LabelErro.setText("CPF invalido");
+        }
+        else if (status != LIVRE && dataInicio.isEmpty()){
+            LabelErro.setVisible(true);
+            LabelErro.setText("Insira a data de inicio");
+        }
+        else if (status != LIVRE && dataTermino.isEmpty()){
+            LabelErro.setVisible(true);
+            LabelErro.setText("Insira a data de termino");
+        }
+        else {
+            try {
+                Veiculo veiculo;
+                if (status == LIVRE){
+                    veiculo = new Veiculo(marca, modelo, grupo, placa);
+                }
+                else {
+                    veiculo = new Veiculo(marca, modelo, grupo, placa, cpf, dataInicio, dataTermino, status);
+                }
+                    
+                //testando se ta pegando tudo certo
+                System.out.println("Veiculo: " + veiculo);
+                
+                DatabaseHandler dbHandler = new DatabaseHandler();
+                String veiculoValues = veiculo.formatToInsert();
+                System.out.println(veiculoValues);
+                int r = dbHandler.insertIntoVeiculoTable(veiculoValues);
+                System.out.println("Values have been inserted!\n" + r);
+                TFMarca.setText("");
+                TFDataInicio.setText("");
+                TFCPF.setText("");
+                TFGrupo.setText("");
+                TFModelo.setText("");
+                TFPlaca.setText("");
+                buttonLivre.setSelected(true);
+                dbHandler.close();
+                
+                
+                
+                LabelErro.setVisible(true);
+                LabelErro.setText("Veiculo criado com sucesso");
+                
+
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+                LabelErro.setVisible(true);
+                LabelErro.setText("Formato de data invalido");
+            }
+        
+        }
+        
+        
+        
+        
+        
+    
+        
+        
         
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+    
+    public static boolean validateCPF(String CPF) {
+        // Se a string recebida tem um tamanho diferente de 11, não pode ser um
+        // número de CPF válido
+        if(CPF.length() != 11)
+            return false;
+
+        // CPFs formados por uma sequência de números iguais são inválidos
+        if(CPF.matches("^(.)\\1*$"))
+            return false;
+
+        char dig10, dig11;
+        int sm, i, r, num, peso;
+          
+        // "try" - protege o codigo para eventuais erros de conversao de tipo (int)
+        try {
+            // Calculo do 1o. Digito Verificador
+            sm = 0;
+            peso = 10;
+            for (i=0; i<9; i++) {              
+                // converte o i-esimo caractere do CPF em um numero:
+                // por exemplo, transforma o caractere '0' no inteiro 0         
+                // (48 eh a posicao de '0' na tabela ASCII) 
+                num = (int)(CPF.charAt(i) - 48); 
+                sm = sm + (num * peso);
+                peso = peso - 1;
+            }
+          
+            r = 11 - (sm % 11);
+            if ((r == 10) || (r == 11))
+                dig10 = '0';
+            else dig10 = (char)(r + 48); // converte no respectivo caractere numerico
+          
+            // Calculo do 2o. Digito Verificador
+            sm = 0;
+            peso = 11;
+            for(i=0; i<10; i++) {
+                num = (int)(CPF.charAt(i) - 48);
+                sm = sm + (num * peso);
+                peso = peso - 1;
+            }
+          
+            r = 11 - (sm % 11);
+            if ((r == 10) || (r == 11))
+                 dig11 = '0';
+            else dig11 = (char)(r + 48);
+          
+            // Verifica se os digitos calculados conferem com os digitos informados.
+            if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10)))
+                 return true;
+            else return false;
+        } catch (InputMismatchException e) {
+            return false;
+        }
     }
 }

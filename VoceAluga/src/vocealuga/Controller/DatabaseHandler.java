@@ -107,6 +107,14 @@ public class DatabaseHandler {
         return stmt.executeUpdate(cmd);
     }
     
+    public int insertIntoVeiculoTable(String values) throws SQLException {
+        String cmd = "insert into VoceAluga.Veiculos (Status, Modelo, Marca, Placa, Grupo, CPF, DataInicio, DataTermino) values"
+                + values + ";";
+        Statement stmt = connection.createStatement();
+        System.out.println(cmd);
+        return stmt.executeUpdate(cmd);
+    }
+    
     public void close() throws SQLException {
         try {
             connection.close();

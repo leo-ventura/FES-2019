@@ -17,14 +17,14 @@
       <TextField fx:id="TFBuscarCNH" layoutX="14.0" layoutY="160.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="000 111 222 33" AnchorPane.leftAnchor="14.0" />
       <Button fx:id="ButtonBuscar" alignment="CENTER" layoutX="233.0" layoutY="273.0" mnemonicParsing="false" onAction="#handleBuscar" text="Buscar" textAlignment="RIGHT" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
       <Separator layoutX="230.0" layoutY="10.0" orientation="VERTICAL" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <Label fx:id="LabelErro" layoutX="14.0" layoutY="188.0" textFill="#ff0000" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="14.0" />
+      <Label fx:id="LabelErro" visible="false" layoutX="14.0" layoutY="188.0" text="Mensagem de erro"  textFill="#ff0000" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="14.0" />
       <Label fx:id="LabelNome" disable="true" layoutX="314.0" layoutY="12.0" text="Nome: " AnchorPane.leftAnchor="250.0" />
       <Label fx:id="LabelCPF" disable="true" layoutX="314.0" layoutY="34.0" text="CPF: " AnchorPane.leftAnchor="250.0" />
       <Label fx:id="LabelCNH" disable="true" layoutX="314.0" layoutY="56.0" text="CNH: " AnchorPane.leftAnchor="250.0" />
       <Label fx:id="LabelEndereco" disable="true" layoutX="314.0" layoutY="78.0" text="Endereço: " AnchorPane.leftAnchor="250.0" />
-      <Label fx:id="LabelNascimento" disable="true" layoutX="314.0" layoutY="100.0" text="Nascimento: " AnchorPane.leftAnchor="250.0" />
+      <Label fx:id="LabelNascimento" disable="true" layoutX="314.0" layoutY="100.0" text="Data de Nascimento: " AnchorPane.leftAnchor="250.0" />
       <Label fx:id="LabelCartao" disable="true" layoutX="314.0" layoutY="122.0" text="Cartão: " AnchorPane.leftAnchor="250.0" />
-      <Label fx:id="LabelNecessidadesEspeciais" disable="true" layoutX="314.0" layoutY="144.0" text="Necessidades Especiais: " AnchorPane.leftAnchor="250.0" />
+      <Label fx:id="LabelNecessidadesEspeciais" disable="true" layoutX="314.0" layoutY="144.0" text="Possui necessidades especiais: " AnchorPane.leftAnchor="250.0" />
       <Label fx:id="LabelDataDeCadastro" disable="true" layoutX="314.0" layoutY="166.0" text="Data de Cadastro: " AnchorPane.leftAnchor="250.0" />
       <Button alignment="CENTER" layoutX="308.0" layoutY="251.0" mnemonicParsing="false" onAction="#removeCliente" text="Remover" textAlignment="CENTER" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="250.0" />
       <Button layoutX="454.0" layoutY="213.0" mnemonicParsing="false" text="Editar" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />

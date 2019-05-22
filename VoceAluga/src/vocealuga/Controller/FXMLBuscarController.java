@@ -129,7 +129,7 @@ public class FXMLBuscarController implements Initializable {
             LabelEndereco.setText("Endereço: " + address);
             LabelNascimento.setText("Data de Nascimento: " + date);
             LabelCartao.setText("Cartão: " + creditCard);
-            LabelNecessidadesEspeciais.setText("Possui Necessidades especiais: "
+            LabelNecessidadesEspeciais.setText("Possui necessidades especiais: "
                                                 + specialNeeds);
             LabelDataDeCadastro.setText("Data de Cadastro: " + dataDeCadastro);
 
@@ -143,7 +143,7 @@ public class FXMLBuscarController implements Initializable {
             System.out.println("Necessidades Especiais: " + specialNeeds);
         } else {
             // Se não existe cliente com os dados recebidos...
-            // ...desativa novamente o texto...
+            // ...desativa novamente o texto e remove o cliente anterior
             LabelNome.setDisable(true);
             LabelCPF.setDisable(true);
             LabelCNH.setDisable(true);
@@ -152,6 +152,14 @@ public class FXMLBuscarController implements Initializable {
             LabelCartao.setDisable(true);
             LabelNecessidadesEspeciais.setDisable(true);
             LabelDataDeCadastro.setDisable(true);
+            LabelNome.setText("Nome: ");
+            LabelCPF.setText("CPF: ");
+            LabelCNH.setText("CNH: ");
+            LabelEndereco.setText("Endereço: ");
+            LabelNascimento.setText("Data de Nascimento: ");
+            LabelCartao.setText("Cartão: ");
+            LabelNecessidadesEspeciais.setText("Possui necessidades especiais: ");
+            LabelDataDeCadastro.setText("Data de Cadastro: ");
             
             // ...e mostra o texto de erro
             LabelErro.setVisible(true);
