@@ -108,21 +108,12 @@ public class DatabaseHandler {
         return stmt.executeUpdate(cmd);
     }
     
-<<<<<<< HEAD
     public int insertIntoVeiculoTable(String values) throws SQLException {
         String cmd = "insert into VoceAluga.Veiculos (Status, Modelo, Marca, Placa, Grupo, CPF, DataInicio, DataTermino) values"
                 + values + ";";
         Statement stmt = connection.createStatement();
         System.out.println(cmd);
         return stmt.executeUpdate(cmd);
-=======
-    public boolean cadastrarVeiculo(Veiculo veiculo) {
-        String query = "insert into ";
-        PreparedStatement preparedStmt = connection.prepareStatement(query);
-        preparedStmt.setString(1, target);
-        ResultSet rs = preparedStmt.executeQuery();
-        if()
->>>>>>> 193e3332faeff6fc64a76b5ef26685786c997409
     }
     
     public void close() throws SQLException {
