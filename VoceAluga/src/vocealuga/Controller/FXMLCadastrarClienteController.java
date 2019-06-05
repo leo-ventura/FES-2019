@@ -56,22 +56,29 @@ public class FXMLCadastrarClienteController implements Initializable {
     
     @FXML
     private void handleCadastrar(ActionEvent event) throws SQLException {
+        cadastraCliente("","","","","","",2);
+    }
+    
+    public boolean cadastraCliente(String name, String address, String creditCard,
+                            String date, String cpf, String cnh, int specialNeeds){
+        boolean retValue = false;
+        
         // Remove espaços no início e fim das strings de nome e endereço
-        String name = TFNome.getText().trim();
-        String address = TFEndereco.getText().trim();
+        if(name.equals("")) name = TFNome.getText().trim();
+        if(address.equals("")) address = TFEndereco.getText().trim();
         // Remove todos os espaços da string de cartão
-        String creditCard = TFCC.getText().replaceAll(" ", "");
+        if(creditCard.equals("")) creditCard = TFCC.getText().replaceAll(" ", "");
         // Substitui '-' por '/' na strng de data
-        String date = TFData.getText().trim().replaceAll("-", "/");
+        if(date.equals("")) date = TFData.getText().trim().replaceAll("-", "/");
         // Remove ' ', '.' e '-' da string de CPF
-        String cpf = TFCPF.getText().replaceAll("[ \\.-]", "");
+        if(cpf.equals("")) cpf = TFCPF.getText().replaceAll("[ \\.-]", "");
         // Remove todos os espaços da string de CNH
-        String cnh = TFCNH.getText().replaceAll(" ", "");
+        if(cnh.equals("")) cnh = TFCNH.getText().replaceAll(" ", "");
         
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        int specialNeeds = CBSpecialNeeds.isSelected() ? 1 : 0;
+        if(specialNeeds == 2) specialNeeds = CBSpecialNeeds.isSelected() ? 1 : 0;
         
         /* TODO: Padronizar mensagem de erro e mostrá-la ao usuário */
         if(name.isEmpty()){
@@ -144,6 +151,8 @@ public class FXMLCadastrarClienteController implements Initializable {
                     
                     LabelError.setVisible(true);
                     LabelError.setText("Cliente cadastrado com sucesso!");
+                    
+                    retValue = true;
                 }
 
                 // closing connection
@@ -155,7 +164,8 @@ public class FXMLCadastrarClienteController implements Initializable {
                 LabelError.setVisible(true);
                 LabelError.setText("Data de nascimento inválida");
             }
-        }        
+        }       
+        return retValue;
     }
 
     @Override

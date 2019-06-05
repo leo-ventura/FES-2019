@@ -81,7 +81,7 @@ public class DatabaseHandler {
         return query("select CPF from VoceAluga.Cliente where CPF = \"" + cpf + "\";");
     }
     
-    public void removeCliente(String cpf) throws SQLException {
+    public boolean removeCliente(String cpf) throws SQLException {
         String query = "delete from VoceAluga.Cliente where CPF = ?";
         
         System.out.println("removing Cliente identified by CPF: " + cpf);
@@ -90,10 +90,14 @@ public class DatabaseHandler {
         
         // preparedStmt.executeUpdate() retorna a quantidade de linhas modificadas
         // System.out.println(preparedStmt.executeUpdate());
-        if(preparedStmt.executeUpdate() > 0)
+        if(preparedStmt.executeUpdate() > 0){
             System.out.println("Cliente removido com sucesso!");
-        else
+            return true;
+        }
+        else{
             System.out.println("Nao foi possivel remover tal cliente");
+            return false;
+        }
     }
     
     public int insertIntoClienteTable(String values) throws SQLException {
