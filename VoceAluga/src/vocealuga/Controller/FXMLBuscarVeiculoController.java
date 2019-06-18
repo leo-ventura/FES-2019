@@ -2,6 +2,7 @@ package vocealuga.Controller;
 
 // importing sql lib
 import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+import javafx.geometry.Insets;
 import java.sql.*;
 
 import java.net.URL;
@@ -12,6 +13,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 import vocealuga.Model.Veiculo;
 
@@ -31,28 +35,69 @@ public class FXMLBuscarVeiculoController implements Initializable {
     @FXML
     private TextField TFBuscarCNH;
     @FXML
+    private ScrollPane SPVeiculos;
+    @FXML
     private Label LabelErro;
-    @FXML
-    private Label LabelMarca;
-    @FXML
-    private Label LabelModelo;
-    @FXML
-    private Label LabelGrupo;
-    @FXML
-    private Label LabelPlaca;
-    @FXML
-    private Label LabelAlugado;
-    @FXML
-    private Label LabelDataInicio;
-    @FXML
-    private Label LabelDataTermino;
-    @FXML
-    private Label LabelCPF;
     @FXML
     private Button ButtonBuscar;
     
+    private VBox selectedItem = null;
+    
+    private VBox getSelected() {
+        return selectedItem;
+    }
+    
+    private void setSelected(VBox item) {
+        VBox parent = (VBox)item.getParent();
+        parent.getChildren().forEach((n) -> {
+            n.setStyle("-fx-background-color:#fff;-fx-border-color:#fff");
+        });
+        item.setStyle("-fx-background-color:#fefefe;-fx-border-color:#000");
+        selectedItem = item;
+    }
+
+    private VBox createListItem(String placa, String marca, String modelo) {
+        VBox div = new VBox();
+        div.setPadding(new Insets(10));
+        div.setSpacing(5);
+        div.setStyle("-fx-background-color:#fff;-fx-border-color:#fff");
+        div.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent m) -> {
+            m.consume();
+            setSelected((VBox)m.getSource());
+        });
+
+        Label LabelPlaca = new Label("Placa: " + placa);
+        Label LabelMarca = new Label("Marca: " + marca);
+        Label LabelModelo = new Label("Modelo: " + modelo);
+
+        div.getChildren().addAll(
+            LabelPlaca,
+            LabelMarca,
+            LabelModelo
+        );
+        return div;
+    }
+    
     @FXML
     private void handleBuscar(ActionEvent event) throws SQLException, ClassNotFoundException {
+        selectedItem = null;
+        VBox root = new VBox();
+        root.setSpacing(10);
+        root.setPadding(new Insets(10));
+        SPVeiculos.setContent(root);
+        SPVeiculos.setPannable(true);
+ 
+    /* <DEMO> */
+        // Em um while / for dos resultados da busca:
+        root.getChildren().add(createListItem("PAD4R14","Tesla","Model X"));
+        root.getChildren().add(createListItem("ZIM8R40","Tesla","Model 3"));
+        root.getChildren().add(createListItem("FES2019","Tesla","Model S"));
+        root.getChildren().add(createListItem("JUM3N70","Tesla","Model X"));
+        // ...
+    /* </DEMO> */
+
+        
+        
 //        // Desativa o botão para evitar buscas concorrentes
 //        ButtonBuscar.setDisable(true);
 //
@@ -63,9 +108,10 @@ public class FXMLBuscarVeiculoController implements Initializable {
 //
 //        DatabaseHandler dbHandler;
 //        ResultSet rs;
+//        // FIXME: Busca de veículo, não de cliente; alterar de acordo
 //        try {
 //            // Busca pelas informações no banco de dados
-//            dbHandler = new DatabaseHandler();;;;;;
+//            dbHandler = new DatabaseHandler();
 //
 //            rs = dbHandler.fetchClienteInfo(
 //                new Cliente(name, cpf, cnh)
@@ -85,85 +131,9 @@ public class FXMLBuscarVeiculoController implements Initializable {
 //            return;
 //        }
 //
-//        /* FIXME: while() faz ele pegar todos os clientes... Supondo CPF único,
-//         * não poderíamos simplemente usar um if()?
-//         * Decisao: usaremos um if, pegando apenas o primeiro resultado,
-//         * independente da quantidade de matches.
-//         */
 //
-//        if(rs.first()) {
-//            // Existe pelo menos um cliente com os valores dados
-//
-//            System.out.println("Veículo encontrado!");
-//            // Substitui as informações dadas pelo usuário pelas informações do
-//            // banco de dados, e pega o resto das informações
-//            placa = rs.getString("Nome");
-//            String address = rs.getString("Endereco");
-//            String date = rs.getString("DataDeNascimento");
-//            cpf = rs.getString("CPF");
-//            cnh = rs.getString("CNH");
-//            String creditCard = rs.getString("CreditCard");
-//            String specialNeeds = (rs.getInt("NecessidadesEspeciais") == 1)
-//                    ? "Sim"
-//                    : "Não";
-//            String dataDeCadastro = rs.getString("DataDeCadastro");
-//            String dataDeAlteracao = rs.getString("DataDeAlteracao");
-//
-//            // Retira possíveis erros recebidos em buscas anteriores
-//            LabelErro.setVisible(false);
-//            
-//            // Reativa os textos da interface
-//            LabelMarca.setDisable(false);
-//            LabelModelo.setDisable(false);
-//            LabelGrupo.setDisable(false);
-//            LabelPlaca.setDisable(false);
-//            LabelAlugado.setDisable(false);
-//            LabelDataInicio.setDisable(false);
-//            LabelDataTermino.setDisable(false);
-//            LabelCPF.setDisable(false);
-//
-//            // Atualiza os textos com as informações encontradas
-//            LabelMarca.setText("Nome: " + placa);
-//            LabelModelo.setText("CPF: " + cpf);
-//            LabelGrupo.setText("CNH: " + cnh);
-//            LabelPlaca.setText("Endereço: " + address);
-//            LabelAlugado.setText("Data de Nascimento: " + date);
-//            LabelDataInicio.setText("Cartão: " + creditCard);
-//            LabelDataTermino.setText("Possui n " + specialNeeds);
-//            LabelCPF.setText("Data de Cadastro: " + dataDeCadastro);
-//
-//            // Imprime (para debug) as informações encontradas
-//            System.out.println("Nome: " + name);
-//            System.out.println("Endereco: " + address);
-//            System.out.println("Data de Nascimento: " + date);
-//            System.out.println("CPF: " + cpf);
-//            System.out.println("CNH: " + cnh);
-//            System.out.println("CC: " + creditCard);
-//            System.out.println("Necessidades Especiais: " + specialNeeds);
-//        } else {
-//            // Se não existe cliente com os dados recebidos...
-//            // ...desativa novamente o texto e remove o cliente anterior
-//            LabelMarca.setDisable(true);
-//            LabelModelo.setDisable(true);
-//            LabelGrupo.setDisable(true);
-//            LabelPlaca.setDisable(true);
-//            LabelAlugado.setDisable(true);
-//            LabelDataInicio.setDisable(true);
-//            LabelDataTermino.setDisable(true);
-//            LabelCPF.setDisable(true);
-//
-//            LabelMarca.setText("Nome: ");
-//            LabelModelo.setText("CPF: ");
-//            LabelGrupo.setText("CNH: ");
-//            LabelPlaca.setText("Endereço: ");
-//            LabelAlugado.setText("Data de Nascimento: ");
-//            LabelDataInicio.setText("Cartão: ");
-//            LabelDataTermino.setText("Possui necessidades especiais: ");
-//            LabelCPF.setText("Data de Cadastro: ");
-//            
-//            // ...e mostra o texto de erro
-//            LabelErro.setVisible(true);
-//            LabelErro.setText("Veículo não encontrado");
+//        while(rs.first()) {
+//          // Organizar todos os veículos na lista
 //        }
 //
 //        // Encerra a conexão com o banco de dados
@@ -173,6 +143,7 @@ public class FXMLBuscarVeiculoController implements Initializable {
 //        ButtonBuscar.setDisable(false);
     }
     
+    // FIXME: Remoção de veículo, não de cliente
     @FXML
     private void removeVeiculo(ActionEvent event) throws ClassNotFoundException, SQLException {
 //        // inicializando outro handler para database;
@@ -193,7 +164,7 @@ public class FXMLBuscarVeiculoController implements Initializable {
 //        // Encerra a conexão com o banco de dados
 //        dbHandler.close();
     }
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
