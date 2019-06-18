@@ -26,7 +26,7 @@
       <Label fx:id="LabelDataInicio" disable="true" layoutX="314.0" layoutY="122.0" text="Data de início:" AnchorPane.leftAnchor="250.0" />
       <Label fx:id="LabelDataTermino" disable="true" layoutX="314.0" layoutY="144.0" text="Data de término:" AnchorPane.leftAnchor="250.0" />
       <Label fx:id="LabelCPF" disable="true" layoutX="314.0" layoutY="166.0" text="CPF do cliente:" AnchorPane.leftAnchor="250.0" />
-      <Button alignment="CENTER" layoutX="308.0" layoutY="251.0" mnemonicParsing="false" onAction="#removeCliente" text="Remover" textAlignment="CENTER" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="250.0" />
+      <Button alignment="CENTER" layoutX="308.0" layoutY="251.0" mnemonicParsing="false" onAction="#removeVeiculo" text="Remover" textAlignment="CENTER" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="250.0" />
       <Button layoutX="454.0" layoutY="213.0" mnemonicParsing="false" text="Editar" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
    </children>
 </AnchorPane>

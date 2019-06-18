@@ -174,7 +174,7 @@ public class FXMLBuscarVeiculoController implements Initializable {
     }
     
     @FXML
-    private void removeCliente(ActionEvent event) throws ClassNotFoundException, SQLException {
+    private void removeVeiculo(ActionEvent event) throws ClassNotFoundException, SQLException {
 //        // inicializando outro handler para database;
 //        // database pode ter mudado de estado desde a ultima interacao
 //        // de cadastro ou remocao
