@@ -52,8 +52,13 @@ public class FXMLMenuController implements Initializable {
     }
 
     @FXML
-    private void openBuscar(ActionEvent event) throws ClassNotFoundException, IOException {
-        openSecondaryWindow("FXMLBuscar", "Buscar");
+    private void openBuscarCliente(ActionEvent event) throws ClassNotFoundException, IOException {
+        openSecondaryWindow("FXMLBuscarCliente", "Buscar cliente");
+    }
+
+    @FXML
+    private void openBuscarVeiculo(ActionEvent event) throws ClassNotFoundException, IOException {
+        openSecondaryWindow("FXMLBuscarVeiculo", "Buscar veículo");
     }
 
     @Override

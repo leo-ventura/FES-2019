@@ -21,7 +21,7 @@ import vocealuga.Model.Cliente;
  * @author avellar
  */
 
-public class FXMLBuscarController implements Initializable {    
+public class FXMLBuscarClienteController implements Initializable {    
     
     // Cliente variables being passed via FXML
     @FXML

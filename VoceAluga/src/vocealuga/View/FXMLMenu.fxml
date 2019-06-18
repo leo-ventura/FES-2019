@@ -6,11 +6,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vocealuga.Controller.FXMLMenuController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="100.0" text="Novo cliente?" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="123.0" mnemonicParsing="false" onAction="#openCadastrarCliente" prefHeight="25.0" prefWidth="125.0" text="Cadastrar cliente" textAlignment="CENTER" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="176.0" text="Novo veículo?" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="199.0" mnemonicParsing="false" onAction="#openCadastrarVeiculo" prefHeight="25.0" prefWidth="125.0" text="Cadastrar veículo" textAlignment="CENTER" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="252.0" text="Procurando cliente?" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="138.0" layoutY="275.0" mnemonicParsing="false" onAction="#openBuscar" prefHeight="25.0" prefWidth="125.0" text="Buscar" textAlignment="CENTER" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="132.0" text="Novo cliente?" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="149.0" mnemonicParsing="false" onAction="#openCadastrarCliente" prefHeight="25.0" prefWidth="125.0" text="Cadastrar cliente" textAlignment="CENTER" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="132.0" text="Procurando cliente?" textAlignment="CENTER" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="238.0" layoutY="149.0" mnemonicParsing="false" onAction="#openBuscarCliente" prefHeight="25.0" prefWidth="125.0" text="Buscar cliente" textAlignment="CENTER" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="227.0" text="Novo veículo?" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="38.0" layoutY="244.0" mnemonicParsing="false" onAction="#openCadastrarVeiculo" prefHeight="25.0" prefWidth="125.0" text="Cadastrar veículo" textAlignment="CENTER" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="248.0" layoutY="227.0" text="Procurando veículo?" textAlignment="CENTER" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="238.0" layoutY="244.0" mnemonicParsing="false" onAction="#openBuscarVeiculo" prefHeight="25.0" prefWidth="125.0" text="Buscar veículo" textAlignment="CENTER" />
    </children>
 </AnchorPane>
