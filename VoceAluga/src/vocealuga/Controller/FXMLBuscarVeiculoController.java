@@ -41,22 +41,30 @@ public class FXMLBuscarVeiculoController implements Initializable {
     @FXML
     private Button ButtonBuscar;
     
+    // Variável para conter o elemento (VBox) selecionado no momento
     private VBox selectedItem = null;
     
+    // Retorna o elemento selecionado no momento
     private VBox getSelected() {
         return selectedItem;
     }
     
+    // Executada ao clicar em um elemento, atualiza o elemento selecionado
     private void setSelected(VBox item) {
+        // Des-seleciona todos os irmãos (para evitar múltiplos selecionados)
         VBox parent = (VBox)item.getParent();
         parent.getChildren().forEach((n) -> {
             n.setStyle("-fx-background-color:#fff;-fx-border-color:#fff");
         });
+        // Atualiza o estilo do selecionado atualmente
         item.setStyle("-fx-background-color:#fefefe;-fx-border-color:#000");
+        // Atualiza a variável que contem o elemento selecionado
         selectedItem = item;
     }
 
+    // Retorna um novo item que pode ser adicionado no ScrollPane
     private VBox createListItem(String placa, String marca, String modelo) {
+        // Cria e configura o estilo e evento do elemento
         VBox div = new VBox();
         div.setPadding(new Insets(10));
         div.setSpacing(5);
@@ -66,10 +74,13 @@ public class FXMLBuscarVeiculoController implements Initializable {
             setSelected((VBox)m.getSource());
         });
 
+        // Cria os textos de dentro do elemento
+        // Nota: aqui podem entrar outros elementos além de Label's
         Label LabelPlaca = new Label("Placa: " + placa);
         Label LabelMarca = new Label("Marca: " + marca);
         Label LabelModelo = new Label("Modelo: " + modelo);
 
+        // Adiciona todos textos dentro do elemento
         div.getChildren().addAll(
             LabelPlaca,
             LabelMarca,
@@ -80,15 +91,21 @@ public class FXMLBuscarVeiculoController implements Initializable {
     
     @FXML
     private void handleBuscar(ActionEvent event) throws SQLException, ClassNotFoundException {
+        // Se o usuário clicou "buscar", não há elemento selecionado no momento
         selectedItem = null;
+        // Cria uma ordenação vertical para os veículos encontrados
         VBox root = new VBox();
         root.setSpacing(10);
         root.setPadding(new Insets(10));
+        // Define que o ScrollPane terá essa ordenação como conteúdo...
         SPVeiculos.setContent(root);
+        // ...e possui scroll por click'n'drag
         SPVeiculos.setPannable(true);
  
     /* <DEMO> */
-        // Em um while / for dos resultados da busca:
+        // Em um while ou for dos resultados da busca:
+        //   root.getChildren().add(createListItem( {dados do veículo } );
+        // Exemplos:
         root.getChildren().add(createListItem("PAD4R14","Tesla","Model X"));
         root.getChildren().add(createListItem("ZIM8R40","Tesla","Model 3"));
         root.getChildren().add(createListItem("FES2019","Tesla","Model S"));
