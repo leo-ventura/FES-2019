@@ -56,58 +56,58 @@ INSERT INTO Veiculos (
     Modelo,
     Marca,
     Placa,
-    Grupo,
+    Grupo
 ) VALUES (
     "Model X",
     "Tesla",
     "P4D4R14",
-    "sp",
+    "sp"
 );
 
 INSERT INTO Veiculos (
     Modelo,
     Marca,
     Placa,
-    Grupo,
+    Grupo
 ) VALUES (
     "Civic",
     "Honda",
     "LEO3264",
-    "a",
+    "a"
 );
 
 INSERT INTO Veiculos (
     Modelo,
     Marca,
     Placa,
-    Grupo,
+    Grupo
 ) VALUES (
     "Etios",
     "Toyota",
     "COL1020",
-    "b",
+    "b"
 );
 
 INSERT INTO Veiculos (
     Modelo,
     Marca,
     Placa,
-    Grupo,
+    Grupo
 ) VALUES (
     "Corsa",
     "Chevrolet",
     "KGB1954",
-    "c",
+    "c"
 );
 
 INSERT INTO Veiculos (
     Modelo,
     Marca,
     Placa,
-    Grupo,
+    Grupo
 ) VALUES (
     "Uno",
     "Fiat",
     "USA1929",
-    "d",
+    "d"
 );
