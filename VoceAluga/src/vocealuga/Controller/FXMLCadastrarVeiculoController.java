@@ -24,6 +24,8 @@ public class FXMLCadastrarVeiculoController implements Initializable {
 
     @FXML
     private Button buttonCancel;
+    @FXML
+    private Button buttonSave;
     
     @FXML
     private TextField TFMarca;
@@ -33,18 +35,18 @@ public class FXMLCadastrarVeiculoController implements Initializable {
     private TextField TFGrupo;
     @FXML
     private TextField TFPlaca;
-    @FXML
-    private RadioButton buttonLivre;
-    @FXML
-    private RadioButton buttonAlugado;
-    @FXML
-    private RadioButton buttonReservado;
-    @FXML
-    private TextField TFCPF;
-    @FXML
-    private TextField TFDataInicio;
-    @FXML
-    private TextField TFDataTermino;
+//    @FXML
+//    private RadioButton buttonLivre;
+//    @FXML
+//    private RadioButton buttonAlugado;
+//    @FXML
+//    private RadioButton buttonReservado;
+//    @FXML
+//    private TextField TFCPF;
+//    @FXML
+//    private TextField TFDataInicio;
+//    @FXML
+//    private TextField TFDataTermino;
     @FXML
     private Label LabelErro;
     
@@ -56,90 +58,96 @@ public class FXMLCadastrarVeiculoController implements Initializable {
         ((Stage) buttonCancel.getScene().getWindow()).close();
     }
     
-    @FXML
-    private void handleHabilitar(ActionEvent event){
-        TFCPF.setDisable(false);
-        TFDataInicio.setDisable(false);
-        TFDataTermino.setDisable(false);
-    }
-    
-   @FXML
-    private void handleDesabilitar(ActionEvent event){
-        TFCPF.setDisable(true);
-        TFDataInicio.setDisable(true);
-        TFDataTermino.setDisable(true);
-    }
+//    @FXML
+//    private void handleHabilitar(ActionEvent event){
+//        TFCPF.setDisable(false);
+//        TFDataInicio.setDisable(false);
+//        TFDataTermino.setDisable(false);
+//    }
+//    
+//   @FXML
+//    private void handleDesabilitar(ActionEvent event){
+//        TFCPF.setDisable(true);
+//        TFDataInicio.setDisable(true);
+//        TFDataTermino.setDisable(true);
+//    }
     
     @FXML
     private void handleCadastrar(ActionEvent event){
-        int LIVRE = 0;
-        int RESERVADO = 1;
-        int ALUGADO = 2;
+//        int LIVRE = 0;
+//        int RESERVADO = 1;
+//        int ALUGADO = 2;
         
         String marca = TFMarca.getText().trim();
         String modelo = TFModelo.getText().trim();
         String grupo = TFGrupo.getText().trim();
         String placa = TFPlaca.getText().trim();
-        String cpf;
-        String dataInicio;
-        String dataTermino;
-        int status = buttonLivre.isSelected()? LIVRE : buttonAlugado.isSelected()? ALUGADO : RESERVADO;
+        buttonSave.setDisable(true);
+//        String cpf;
+//        String dataInicio;
+//        String dataTermino;
+//        int status = buttonLivre.isSelected()? LIVRE : buttonAlugado.isSelected()? ALUGADO : RESERVADO;
         
         //se o status for LIVRE, cpf e datas são null
-        if (status == LIVRE){
-            cpf = null;
-            dataInicio = null;
-            dataTermino = null;
-        }
-        //caso contrario, seta cpf e datas
-        else {
-            cpf = TFCPF.getText().trim();
-            dataInicio = TFDataInicio.getText().trim();
-            dataTermino = TFDataTermino.getText().trim();
-        }
+//        if (status == LIVRE){
+//            cpf = null;
+//            dataInicio = null;
+//            dataTermino = null;
+//        }
+//        //caso contrario, seta cpf e datas
+//        else {
+//            cpf = TFCPF.getText().trim();
+//            dataInicio = TFDataInicio.getText().trim();
+//            dataTermino = TFDataTermino.getText().trim();
+//        }
         
         //TODO inserir verificacao dos campos
         if (marca.isEmpty()){
             LabelErro.setVisible(true);
             LabelErro.setText("Insira a marca");
+            buttonSave.setDisable(false);
         }
         else if (modelo.isEmpty()){
             LabelErro.setVisible(true);
             LabelErro.setText("Insira o modelo");
+            buttonSave.setDisable(false);
         }
         else if (grupo.isEmpty()){
             LabelErro.setVisible(true);
             LabelErro.setText("Insira o grupo");
+            buttonSave.setDisable(false);
         }
         else if (placa.isEmpty()){
             LabelErro.setVisible(true);
             LabelErro.setText("Insira a placa");
+            buttonSave.setDisable(false);
         }
-        else if (status != LIVRE && cpf.isEmpty()){
-            LabelErro.setVisible(true);
-            LabelErro.setText("Insira o cpf");
-        }
-        else if (status != LIVRE && !validateCPF(cpf)){
-            LabelErro.setVisible(true);
-            LabelErro.setText("CPF invalido");
-        }
-        else if (status != LIVRE && dataInicio.isEmpty()){
-            LabelErro.setVisible(true);
-            LabelErro.setText("Insira a data de inicio");
-        }
-        else if (status != LIVRE && dataTermino.isEmpty()){
-            LabelErro.setVisible(true);
-            LabelErro.setText("Insira a data de termino");
-        }
+//        else if (status != LIVRE && cpf.isEmpty()){
+//            LabelErro.setVisible(true);
+//            LabelErro.setText("Insira o cpf");
+//        }
+//        else if (status != LIVRE && !validateCPF(cpf)){
+//            LabelErro.setVisible(true);
+//            LabelErro.setText("CPF invalido");
+//        }
+//        else if (status != LIVRE && dataInicio.isEmpty()){
+//            LabelErro.setVisible(true);
+//            LabelErro.setText("Insira a data de inicio");
+//        }
+//        else if (status != LIVRE && dataTermino.isEmpty()){
+//            LabelErro.setVisible(true);
+//            LabelErro.setText("Insira a data de termino");
+//        }
         else {
             try {
                 Veiculo veiculo;
-                if (status == LIVRE){
-                    veiculo = new Veiculo(marca, modelo, grupo, placa);
-                }
-                else {
-                    veiculo = new Veiculo(marca, modelo, grupo, placa, cpf, dataInicio, dataTermino, status);
-                }
+//                if (status == LIVRE){
+//                    veiculo = new Veiculo(marca, modelo, grupo, placa);
+//                }
+//                else {
+//                    veiculo = new Veiculo(marca, modelo, grupo, placa, cpf, dataInicio, dataTermino, status);
+//                }
+                veiculo = new Veiculo(marca, modelo, grupo, placa);
                     
                 //testando se ta pegando tudo certo
                 System.out.println("Veiculo: " + veiculo);
@@ -147,28 +155,31 @@ public class FXMLCadastrarVeiculoController implements Initializable {
                 DatabaseHandler dbHandler = new DatabaseHandler();
                 String veiculoValues = veiculo.formatToInsert();
                 System.out.println(veiculoValues);
+                System.out.println(veiculo);
                 int r = dbHandler.insertIntoVeiculoTable(veiculoValues);
                 System.out.println("Values have been inserted!\n" + r);
                 TFMarca.setText("");
-                TFDataInicio.setText("");
-                TFCPF.setText("");
+//                TFDataInicio.setText("");
+//                TFCPF.setText("");
                 TFGrupo.setText("");
                 TFModelo.setText("");
                 TFPlaca.setText("");
-                buttonLivre.setSelected(true);
+//                buttonLivre.setSelected(true);
                 dbHandler.close();
                 
                 
                 
                 LabelErro.setVisible(true);
                 LabelErro.setText("Veiculo criado com sucesso");
+                buttonSave.setDisable(false);
                 
 
             }
             catch(Exception e){
                 System.out.println(e.getMessage());
                 LabelErro.setVisible(true);
-                LabelErro.setText("Formato de data invalido");
+                LabelErro.setText(e.getMessage());
+                buttonSave.setDisable(false);
             }
         }
     }

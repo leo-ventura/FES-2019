@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import vocealuga.Model.Cliente;
 import vocealuga.Model.Veiculo;
@@ -113,11 +115,27 @@ public class DatabaseHandler {
     }
     
     public int insertIntoVeiculoTable(String values) throws SQLException {
-        String cmd = "insert into VoceAluga.Veiculos (Status, Modelo, Marca, Placa, Grupo, CPF, DataInicio, DataTermino) values"
+//        String cmd = "insert into VoceAluga.Veiculos (Status, Modelo, Marca, Placa, Grupo, CPF, DataInicio, DataTermino) values"
+//                + values + ";";
+        String cmd = "insert into VoceAluga.Veiculos (Modelo, Marca, Placa, Grupo) values"
                 + values + ";";
         Statement stmt = connection.createStatement();
         System.out.println(cmd);
         return stmt.executeUpdate(cmd);
+    }
+    
+    public ArrayList<Veiculo> getVeiculos() throws SQLException{
+        ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
+        Statement smt = connection.createStatement();
+        ResultSet result = smt.executeQuery("Select * from VoceAluga.Veiculos");
+        while (result.next()){
+            String modelo = result.getString("Modelo");
+            String marca = result.getString("Marca");
+            String placa = result.getString("Placa");
+            String grupo = result.getString("Grupo");
+            veiculos.add(new Veiculo(marca, modelo, grupo, placa));
+        }
+        return veiculos;
     }
     
     public void close() throws SQLException {
