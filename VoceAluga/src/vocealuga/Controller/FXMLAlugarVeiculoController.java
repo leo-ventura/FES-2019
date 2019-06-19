@@ -54,7 +54,7 @@ public class FXMLAlugarVeiculoController implements Initializable {
         // Des-seleciona todos os irmãos (para evitar múltiplos selecionados)
         VBox parent = (VBox)item.getParent();
         parent.getChildren().forEach((n) -> {
-            n.setStyle("-fx-background-color:#fff;-fx-border-color:#fff");
+            n.setStyle("-fx-background-color:#fff;-fx-border-color:#b0b0b0");
         });
         // Atualiza o estilo do selecionado atualmente
         item.setStyle("-fx-background-color:#fefefe;-fx-border-color:#000");
@@ -130,7 +130,7 @@ public class FXMLAlugarVeiculoController implements Initializable {
         VBox div = new VBox();
         div.setPadding(new Insets(10));
         div.setSpacing(5);
-        div.setStyle("-fx-background-color:#fff;-fx-border-color:#fff");
+        div.setStyle("-fx-background-color:#fff;-fx-border-color:#b0b0b0");
         div.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent m) -> {
             m.consume();
             setSelected((VBox)m.getSource());
