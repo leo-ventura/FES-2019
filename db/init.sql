@@ -54,19 +54,71 @@ INSERT INTO Cliente (
 );
 
 INSERT INTO Veiculos (
-    CPF,
     Modelo,
     Marca,
     Placa,
     Grupo,
-    DataInicio,
-    DataTermino
+    CarStatus
 ) VALUES (
-    "12345678900",
     "Model X",
     "Tesla",
     "P4D4R14",
     "sp",
-    "20/04/2019",
-    "23/04/2019"
+    "livre"
+);
+
+INSERT INTO Veiculos (
+    Modelo,
+    Marca,
+    Placa,
+    Grupo,
+    CarStatus
+) VALUES (
+    "Civic",
+    "Honda",
+    "LEO3264",
+    "a",
+    "livre"
+);
+
+INSERT INTO Veiculos (
+    Modelo,
+    Marca,
+    Placa,
+    Grupo,
+    CarStatus
+) VALUES (
+    "Etios",
+    "Toyota",
+    "COL1020",
+    "b",
+    "livre"
+);
+
+INSERT INTO Veiculos (
+    Modelo,
+    Marca,
+    Placa,
+    Grupo,
+    CarStatus
+) VALUES (
+    "Corsa",
+    "Chevrolet",
+    "KGB1954",
+    "c",
+    "livre"
+);
+
+INSERT INTO Veiculos (
+    Modelo,
+    Marca,
+    Placa,
+    Grupo,
+    CarStatus
+) VALUES (
+    "Uno",
+    "Fiat",
+    "USA1929",
+    "d",
+    "livre"
 );
