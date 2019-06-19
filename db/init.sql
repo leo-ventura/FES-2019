@@ -17,7 +17,6 @@ CREATE TABLE Veiculos (
     Marca varchar(40),
     Placa varchar(10),
     Grupo varchar(5),
-    CarStatus varchar(8)
 ) ENGINE=INNODB;
 
 CREATE TABLE HistoricoVeiculos (
@@ -58,13 +57,11 @@ INSERT INTO Veiculos (
     Marca,
     Placa,
     Grupo,
-    CarStatus
 ) VALUES (
     "Model X",
     "Tesla",
     "P4D4R14",
     "sp",
-    "livre"
 );
 
 INSERT INTO Veiculos (
@@ -72,13 +69,11 @@ INSERT INTO Veiculos (
     Marca,
     Placa,
     Grupo,
-    CarStatus
 ) VALUES (
     "Civic",
     "Honda",
     "LEO3264",
     "a",
-    "livre"
 );
 
 INSERT INTO Veiculos (
@@ -86,13 +81,11 @@ INSERT INTO Veiculos (
     Marca,
     Placa,
     Grupo,
-    CarStatus
 ) VALUES (
     "Etios",
     "Toyota",
     "COL1020",
     "b",
-    "livre"
 );
 
 INSERT INTO Veiculos (
@@ -100,13 +93,11 @@ INSERT INTO Veiculos (
     Marca,
     Placa,
     Grupo,
-    CarStatus
 ) VALUES (
     "Corsa",
     "Chevrolet",
     "KGB1954",
     "c",
-    "livre"
 );
 
 INSERT INTO Veiculos (
@@ -114,11 +105,9 @@ INSERT INTO Veiculos (
     Marca,
     Placa,
     Grupo,
-    CarStatus
 ) VALUES (
     "Uno",
     "Fiat",
     "USA1929",
     "d",
-    "livre"
 );
