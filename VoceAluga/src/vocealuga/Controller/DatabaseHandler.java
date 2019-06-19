@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,18 +126,52 @@ public class DatabaseHandler {
         return stmt.executeUpdate(cmd);
     }
     
+    public int insertIntoHistoricoTable(String values) throws SQLException {
+        String cmd = "insert into VoceAluga.HistoricoVeiculos (CarId, DataDeInicio, DataDeTermino, ClienteCPF) values" 
+                + values + ";";
+        Statement stmt = connection.createStatement();
+        System.out.println(cmd);
+        return stmt.executeUpdate(cmd);
+    }
+    
     public ArrayList<Veiculo> getVeiculos() throws SQLException{
         ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
         Statement smt = connection.createStatement();
         ResultSet result = smt.executeQuery("Select * from VoceAluga.Veiculos");
         while (result.next()){
+            int id = result.getInt("CarId");
             String modelo = result.getString("Modelo");
             String marca = result.getString("Marca");
             String placa = result.getString("Placa");
             String grupo = result.getString("Grupo");
-            veiculos.add(new Veiculo(marca, modelo, grupo, placa));
+            veiculos.add(new Veiculo(id, marca, modelo, grupo, placa));
         }
         return veiculos;
+    }
+    
+    public boolean isFreeAtRange(int cardId, LocalDate inicio, LocalDate fim) throws SQLException{
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        Statement smt = connection.createStatement();
+        int i = 1;
+        ResultSet result = smt.executeQuery("Select * from VoceAluga.HistoricoVeiculos where carId = " + cardId);
+        while (result.next()){
+            System.out.println("Comparando com a transacao " + i++);
+            LocalDate auxInicio = LocalDate.parse(result.getString("DataDeInicio"), formatter);
+            LocalDate auxFim = LocalDate.parse(result.getString("DataDeTermino"), formatter);
+            if ((inicio.isAfter(auxInicio) && inicio.isBefore(auxFim)) || fim.isAfter(auxInicio) && fim.isBefore(auxFim)){
+                System.out.println("Veiculo ocupado na data desejada");
+                return false;
+            }
+            if (inicio.isBefore(auxInicio) && fim.isAfter(auxFim)){
+                System.out.println("Veiculo ocupado na data desejada");
+                return false;
+            }
+            
+            
+        }
+        System.out.println("Veiculo livre na data desejada!");
+        return true;
+
     }
     
     public void close() throws SQLException {

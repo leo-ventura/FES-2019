@@ -18,7 +18,7 @@
       <TextField fx:id="TFDataFim" layoutX="14.0" layoutY="160.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" promptText="10/04/2019" AnchorPane.leftAnchor="14.0" />
       <Separator layoutX="230.0" layoutY="10.0" orientation="VERTICAL" AnchorPane.bottomAnchor="10.0" AnchorPane.topAnchor="10.0" />
       <Label fx:id="LabelErro" layoutX="14.0" layoutY="188.0" text="Mensagem de erro" textFill="#ff0000" visible="false" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="14.0" />
-      <Button layoutX="454.0" layoutY="213.0" mnemonicParsing="false" text="Alugar" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+      <Button fx:id="ButtonAlugar" layoutX="454.0" layoutY="213.0" mnemonicParsing="false" text="Alugar" AnchorPane.bottomAnchor="14.0" onAction="#handleAlugar" AnchorPane.rightAnchor="14.0" />
       <ScrollPane fx:id="SPVeiculos" layoutX="244.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="53.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
    </children>
 </AnchorPane>

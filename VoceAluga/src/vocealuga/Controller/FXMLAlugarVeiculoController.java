@@ -6,6 +6,8 @@ import javafx.geometry.Insets;
 import java.sql.*;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -17,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import vocealuga.Model.Transacao;
 
 import vocealuga.Model.Veiculo;
 
@@ -30,25 +33,21 @@ public class FXMLAlugarVeiculoController implements Initializable {
     
     // Cliente variables being passed via FXML
     @FXML
-    private TextField TFBuscarPlaca;
+    private TextField TFDataInicio;
     @FXML
-    private TextField TFBuscarCPF;
+    private TextField TFCPFCliente;
     @FXML
-    private TextField TFBuscarCNH;
+    private TextField TFDataFim;
     @FXML
     private ScrollPane SPVeiculos;
     @FXML
     private Label LabelErro;
     @FXML
-    private Button ButtonBuscar;
+    private Button ButtonAlugar;
     
     // Variável para conter o elemento (VBox) selecionado no momento
-    private VBox selectedItem = null;
+    private int selectedItem = -1;
     
-    // Retorna o elemento selecionado no momento
-    private VBox getSelected() {
-        return selectedItem;
-    }
     
     // Executada ao clicar em um elemento, atualiza o elemento selecionado
     private void setSelected(VBox item) {
@@ -60,13 +59,73 @@ public class FXMLAlugarVeiculoController implements Initializable {
         // Atualiza o estilo do selecionado atualmente
         item.setStyle("-fx-background-color:#fefefe;-fx-border-color:#000");
         // Atualiza a variável que contem o elemento selecionado
-        selectedItem = item;
+        //System.out.println(item.getAccessibleText());
+        selectedItem = Integer.valueOf(item.getAccessibleText());
     }
     
    
 
+    @FXML
+    private void handleAlugar(ActionEvent event) throws SQLException, ClassNotFoundException{
+        //System.out.println(selectedItem);
+        String CPF = TFCPFCliente.getText().trim();
+        LocalDate dataInicio = null;
+        LocalDate dataFim = null;
+        DateTimeFormatter formatter;
+        try {
+            formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");        
+            dataInicio = LocalDate.parse(TFDataInicio.getText().trim(), formatter);
+            dataFim = LocalDate.parse(TFDataFim.getText().trim(), formatter);
+        } catch (Exception e){
+            LabelErro.setVisible(true);
+            LabelErro.setText("Data inválida");
+        }
+        if (CPF.isEmpty()){
+            LabelErro.setVisible(true);
+            LabelErro.setText("Insira o CPF do cliente");
+        }
+        else if (selectedItem == -1) {
+            LabelErro.setVisible(true);
+            LabelErro.setText("Selecione algum carro");
+        }
+        else if (dataInicio.isBefore(LocalDate.now())){
+            LabelErro.setVisible(true);
+            LabelErro.setText("A data desejada já passou!");
+        }
+        else if (dataInicio.isAfter(dataFim)){
+            LabelErro.setVisible(true);
+            LabelErro.setText("A data de início não pode ser maior");
+        }
+        else {
+            LabelErro.setVisible(true);
+            LabelErro.setText("Conectando ao banco de dados");
+            
+            DatabaseHandler db = new DatabaseHandler();
+            if (db.isFreeAtRange(selectedItem, dataInicio, dataFim)){
+                Transacao trans = new Transacao(CPF, dataInicio, dataFim, selectedItem);
+                System.out.println(trans.formatToInsert());
+                LabelErro.setVisible(false);
+                try {
+                    db.insertIntoHistoricoTable(trans.formatToInsert());
+                    LabelErro.setVisible(true);
+                    LabelErro.setText("Inserido com sucesso!");    
+                } catch(Exception e){
+                    LabelErro.setVisible(true);
+                    LabelErro.setText(e.getMessage());
+                }
+            }
+            else {
+                LabelErro.setVisible(true);
+                LabelErro.setText("Carro ocupado na data desejada!");
+            }
+            db.close();
+            
+            
+        }
+    }
+    
     // Retorna um novo item que pode ser adicionado no ScrollPane
-    private VBox createListItem(String placa, String marca, String modelo) {
+    private VBox createListItem(Veiculo veiculo) {
         // Cria e configura o estilo e evento do elemento
         VBox div = new VBox();
         div.setPadding(new Insets(10));
@@ -80,124 +139,28 @@ public class FXMLAlugarVeiculoController implements Initializable {
 
         // Cria os textos de dentro do elemento
         // Nota: aqui podem entrar outros elementos além de Label's
-        Label LabelPlaca = new Label("Placa: " + placa);
-        Label LabelMarca = new Label("Marca: " + marca);
-        Label LabelModelo = new Label("Modelo: " + modelo);
+        Label LabelPlaca = new Label("Placa: " + veiculo.getPlaca());
+        Label LabelMarca = new Label("Marca: " + veiculo.getMarca());
+        Label LabelModelo = new Label("Modelo: " + veiculo.getModelo());
+        Label LabelGrupo = new Label("Grupo: "+ veiculo.getGrupo());
 
         // Adiciona todos textos dentro do elemento
         div.getChildren().addAll(
             LabelPlaca,
             LabelMarca,
-            LabelModelo
+            LabelModelo,
+            LabelGrupo
         );
+        div.setAccessibleText(String.valueOf(veiculo.getId()));
         return div;
     }
     
-//    @FXML
-//    private void handleBuscar(ActionEvent event) throws SQLException, ClassNotFoundException {
-//        // Se o usuário clicou "buscar", não há elemento selecionado no momento
-//        selectedItem = null;
-//        // Cria uma ordenação vertical para os veículos encontrados
-//        VBox root = new VBox();
-//        root.setSpacing(10);
-//        root.setPadding(new Insets(10));
-//        // Define que o ScrollPane terá essa ordenação como conteúdo...
-//        SPVeiculos.setContent(root);
-//        // ...e possui scroll por click'n'drag
-//        SPVeiculos.setPannable(true);
-// 
-//    /* <DEMO> */
-//        // Em um while ou for dos resultados da busca:
-//        //   root.getChildren().add(createListItem( {dados do veículo } );
-//        // Exemplos:
-////        root.getChildren().add(createListItem("PAD4R14","Tesla","Model X"));
-////        root.getChildren().add(createListItem("ZIM8R40","Tesla","Model 3"));
-////        root.getChildren().add(createListItem("FES2019","Tesla","Model S"));
-////        root.getChildren().add(createListItem("JUM3N70","Tesla","Model X"));
-//        // ...
-//    /* </DEMO> */
-//        System.out.println("Acessando banco de dados");
-//        DatabaseHandler db = new DatabaseHandler();
-//        ArrayList<Veiculo> veiculos = db.getVeiculos();
-//        System.out.println(veiculos.size() + " veículos encontrados");
-//        for (Veiculo veiculo: veiculos){
-//            root.getChildren().add(createListItem(veiculo.getPlaca(), veiculo.getMarca(), veiculo.getModelo()));
-//        }
-//        db.close();
-//
-//        
-//        
-////        // Desativa o botão para evitar buscas concorrentes
-////        ButtonBuscar.setDisable(true);
-////
-////        // Pega informaçãoes providas pelo usuário
-////        String placa = TFBuscarPlaca.getText();
-////        String cpf = TFBuscarCPF.getText();
-////        String cnh = TFBuscarCNH.getText();
-////
-////        DatabaseHandler dbHandler;
-////        ResultSet rs;
-////        // FIXME: Busca de veículo, não de cliente; alterar de acordo
-////        try {
-////            // Busca pelas informações no banco de dados
-////            dbHandler = new DatabaseHandler();
-////
-////            rs = dbHandler.fetchClienteInfo(
-////                new Cliente(name, cpf, cnh)
-////            );
-////        } catch(ClassNotFoundException
-////                | CommunicationsException
-////                | NullPointerException e) {
-////            // Algo deu errado!
-////            System.out.println("Oh no: " + e);
-////
-////            // Mostra o texto de erro
-////            LabelErro.setVisible(true);
-////            LabelErro.setText("Erro na conexão com o BD");
-////
-////            // Reativa o botão
-////            ButtonBuscar.setDisable(false);
-////            return;
-////        }
-////
-////
-////        while(rs.first()) {
-////          // Organizar todos os veículos na lista
-////        }
-////
-////        // Encerra a conexão com o banco de dados
-////        dbHandler.close();
-////
-////        // Reativa o botão para próximas buscas
-////        ButtonBuscar.setDisable(false);
-//    }
     
-    // FIXME: Remoção de veículo, não de cliente
-    @FXML
-    private void removeVeiculo(ActionEvent event) throws ClassNotFoundException, SQLException {
-//        // inicializando outro handler para database;
-//        // database pode ter mudado de estado desde a ultima interacao
-//        // de cadastro ou remocao
-//        // Pros: garante que sempre teremos um estado da database atualizado
-//        // Contras: varias conexoes podem acabar sendo abertas, congestionando
-//        // o banco de dados
-//        DatabaseHandler dbHandler = new DatabaseHandler();
-//        
-//        // Pegando o CPF do Cliente a ser removido
-//        // Como o CPF eh um dado unico, podemos remover usando apenas ele
-//        // como parametro para a query
-//        String cpf = TFBuscarCPF.getText();
-//        
-//        dbHandler.removeCliente(cpf);
-//        
-//        // Encerra a conexão com o banco de dados
-//        dbHandler.close();
-    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-                selectedItem = null;
+                //selectedItem = null;
         // Cria uma ordenação vertical para os veículos encontrados
         VBox root = new VBox();
         root.setSpacing(10);
@@ -213,7 +176,7 @@ public class FXMLAlugarVeiculoController implements Initializable {
             ArrayList<Veiculo> veiculos = db.getVeiculos();
             System.out.println(veiculos.size() + " veículos encontrados");
             for (Veiculo veiculo: veiculos){
-                root.getChildren().add(createListItem(veiculo.getPlaca(), veiculo.getMarca(), veiculo.getModelo()));
+                root.getChildren().add(createListItem(veiculo));
             }
         db.close();
 

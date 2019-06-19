@@ -13,6 +13,7 @@ public class Veiculo {
 //    private int ALUGADO = 2;
 //    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     
+    private int id = 0;
     private String marca;
     private String modelo;
     private String grupo;
@@ -40,7 +41,15 @@ public class Veiculo {
 //        this.DataTermino = null; 
 //        this.status = LIVRE;
     }
-    
+
+    public Veiculo(int id, String marca, String modelo, String grupo, String placa){
+        this.id = id;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.grupo = grupo;
+        this.placa = placa;
+    }
+
 //    public Veiculo(String marca, String modelo, String grupo, String placa, String CPF, String DataInicio, String DataTermino, int status){
 //        this.marca = marca;
 //        this.modelo = modelo;
@@ -63,6 +72,9 @@ public class Veiculo {
     }
     public String getGrupo() {
         return this.grupo;
+    }
+    public int getId() {
+        return this.id;
     }
     public String toString() {
 //        return String.format("Marca: %s. Modelo: %s. Grupo: %s. Placa: %s.\nSatus: %s.\nCPF: %s, Data Inicio: %s, Data Termino: %s.", 
