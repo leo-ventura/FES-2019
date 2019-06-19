@@ -12,15 +12,15 @@ CREATE TABLE Cliente (
 ) ENGINE=INNODB;
 
 CREATE TABLE Veiculos (
-    CarId int not null auto_increment primary key unique,
+    CarId int not null auto_increment primary key,
     Modelo varchar(40),
     Marca varchar(40),
     Placa varchar(10),
-    Grupo varchar(5),
+    Grupo varchar(5)
 ) ENGINE=INNODB;
 
 CREATE TABLE HistoricoVeiculos (
-    HistoricoId int not null auto_increment primary key unique,
+    HistoricoId int not null auto_increment primary key,
     CarId int not null,
     foreign key (CarId) references Veiculos (CarId),
     DataDeInicio varchar(10),
