@@ -95,32 +95,33 @@ public class FXMLAlugarVeiculoController implements Initializable {
         else if (dataInicio.isAfter(dataFim)){
             LabelErro.setVisible(true);
             LabelErro.setText("A data de início não pode ser maior");
-        }
-        else {
+        } else {
             LabelErro.setVisible(true);
             LabelErro.setText("Conectando ao banco de dados");
             
             DatabaseHandler db = new DatabaseHandler();
-            if (db.isFreeAtRange(selectedItem, dataInicio, dataFim)){
-                Transacao trans = new Transacao(CPF, dataInicio, dataFim, selectedItem);
-                System.out.println(trans.formatToInsert());
-                LabelErro.setVisible(false);
-                try {
-                    db.insertIntoHistoricoTable(trans.formatToInsert());
-                    LabelErro.setVisible(true);
-                    LabelErro.setText("Inserido com sucesso!");    
-                } catch(Exception e){
-                    LabelErro.setVisible(true);
-                    LabelErro.setText(e.getMessage());
-                }
-            }
-            else {
+            if(db.isFreeAtRange(selectedItem, dataInicio, dataFim)) {
+              Transacao trans = new Transacao(CPF, dataInicio, dataFim, selectedItem);
+              System.out.println(trans.formatToInsert());
+              LabelErro.setVisible(false);
+              try {
+                db.insertIntoHistoricoTable(trans.formatToInsert());
                 LabelErro.setVisible(true);
-                LabelErro.setText("Carro ocupado na data desejada!");
+                LabelErro.setText("Inserido com sucesso!");    
+              } catch(SQLException e) {
+                System.out.println(e.getMessage());
+
+                LabelErro.setVisible(true);
+                if(e.getMessage().contains("CPF"))
+                  LabelErro.setText("CPF não encontrado!");
+                else
+                  LabelErro.setText("Woops!");
+              }
+            } else {
+              LabelErro.setVisible(true);
+              LabelErro.setText("Carro ocupado na data desejada!");
             }
             db.close();
-            
-            
         }
     }
     
