@@ -38,7 +38,7 @@ public class DatabaseHandler {
             this.connection = DriverManager.getConnection(url, databaseUser, databasePassword);
 
             // printing status
-            System.out.println("Database connected sucessfully");
+//            System.out.println("Database connected sucessfully");
         } catch(ClassNotFoundException ClassNotFoundError) {
             System.out.println("Cannot find the driver in the classpath! " + ClassNotFoundError);
         } catch(SQLException SQLError) {
@@ -48,7 +48,9 @@ public class DatabaseHandler {
     
     public ResultSet query(String query) throws SQLException {
         Statement stmt = connection.createStatement();
-        return stmt.executeQuery(query);
+        if(query != null && !query.equalsIgnoreCase(""))
+            return stmt.executeQuery(query);
+        return null;
     }
     
     public ResultSet fetchClienteInfo(Cliente cliente) throws SQLException {
@@ -57,6 +59,8 @@ public class DatabaseHandler {
         // cpf, cnh
         // depois procuramos por dados que talvez nao sejam unicos e, consequentemente,
         // podem nao retornar apenas um resultado
+        if(cliente == null)
+            return null;
         String query = "select * from VoceAluga.Cliente where ";
         String target = "";
         if(!cliente.getCPF().equals("")) {
@@ -82,7 +86,9 @@ public class DatabaseHandler {
     }
     
     public ResultSet checkCPF(String cpf) throws SQLException {
-        return query("select CPF from VoceAluga.Cliente where CPF = \"" + cpf + "\";");
+        if(cpf != null && !cpf.equalsIgnoreCase(""))
+            return query("select CPF from VoceAluga.Cliente where CPF = \"" + cpf + "\";");
+        return null;
     }
     
     public boolean removeCliente(String cpf) throws SQLException {
@@ -111,9 +117,13 @@ public class DatabaseHandler {
                 + values + ";";
         
 //        insert into Cliente (nome, endereco, cc, data, cpf, cnh, necessidades_especiais) values ("test", "end", "cc", "data", "cpf", "cnh", 1);
-        Statement stmt = connection.createStatement();
         System.out.println(cmd);
-        return stmt.executeUpdate(cmd);
+        
+        if(cmd != null && values != null && !values.equalsIgnoreCase("")) {
+            Statement stmt = connection.createStatement();
+            return stmt.executeUpdate(cmd);
+        }
+        return -1;
     }
     
     public int insertIntoVeiculoTable(String values) throws SQLException {
@@ -121,17 +131,23 @@ public class DatabaseHandler {
 //                + values + ";";
         String cmd = "insert into VoceAluga.Veiculos (Modelo, Marca, Placa, Grupo) values"
                 + values + ";";
-        Statement stmt = connection.createStatement();
         System.out.println(cmd);
-        return stmt.executeUpdate(cmd);
+        if (values != null && !values.equalsIgnoreCase("") ) {
+            Statement stmt = connection.createStatement();
+            return stmt.executeUpdate(cmd);
+        }
+        return -1;
     }
     
     public int insertIntoHistoricoTable(String values) throws SQLException {
         String cmd = "insert into VoceAluga.HistoricoVeiculos (CarId, DataDeInicio, DataDeTermino, ClienteCPF) values" 
                 + values + ";";
-        Statement stmt = connection.createStatement();
         System.out.println(cmd);
-        return stmt.executeUpdate(cmd);
+        if (values != null && !values.equalsIgnoreCase("")) {
+            Statement stmt = connection.createStatement();
+            return stmt.executeUpdate(cmd);
+        }
+        return -1;
     }
     
     public ArrayList<Veiculo> getVeiculos() throws SQLException{
@@ -146,10 +162,14 @@ public class DatabaseHandler {
             String grupo = result.getString("Grupo");
             veiculos.add(new Veiculo(id, marca, modelo, grupo, placa));
         }
+        System.out.println(veiculos);
         return veiculos;
     }
     
     public boolean isFreeAtRange(int cardId, LocalDate inicio, LocalDate fim) throws SQLException{
+        if(inicio == null || fim == null)
+            return false;
+        
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Statement smt = connection.createStatement();
         int i = 1;

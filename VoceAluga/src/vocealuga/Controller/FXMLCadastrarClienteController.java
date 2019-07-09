@@ -63,6 +63,13 @@ public class FXMLCadastrarClienteController implements Initializable {
                             String date, String cpf, String cnh, int specialNeeds){
         boolean retValue = false;
         
+        // Checando se os TextFields sao nulos
+        // isso pode quebrar algo?
+        // se o programa der problema, checar aqui
+        if(TFNome == null || TFEndereco == null || TFCC == null
+        || TFData == null || TFCPF == null || TFCNH == null)
+            return retValue;
+        
         // Remove espaços no início e fim das strings de nome e endereço
         if(name.equals("")) name = TFNome.getText().trim();
         if(address.equals("")) address = TFEndereco.getText().trim();

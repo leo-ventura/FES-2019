@@ -162,6 +162,9 @@ public class FXMLAlugarVeiculoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
                 //selectedItem = null;
+        if(url == null || rb == null)
+            return;
+        
         // Cria uma ordenação vertical para os veículos encontrados
         VBox root = new VBox();
         root.setSpacing(10);

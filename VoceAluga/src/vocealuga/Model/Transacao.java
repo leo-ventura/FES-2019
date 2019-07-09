@@ -44,7 +44,10 @@ public class Transacao {
         String beginningSeparator = "(\"";
         String midSeparator = "\", \"";
         String endingSeparator = "\")";
-        return beginningSeparator + this.carId + midSeparator + this.dataInicio.format(formatter) + midSeparator + this.dataFim.format(formatter) + midSeparator + this.CPFCliente + endingSeparator;
+        return beginningSeparator + this.carId + midSeparator + 
+                this.dataInicio.format(formatter) + midSeparator + 
+                this.dataFim.format(formatter) + midSeparator + this.CPFCliente + 
+                endingSeparator;
  }
 
 }

@@ -37,7 +37,7 @@ public class FXMLMenuController implements Initializable {
             // Abre a janela para o usuário
             secondaryWindow.show();
         } catch(IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -62,8 +62,6 @@ public class FXMLMenuController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+    public void initialize(URL url, ResourceBundle rb) {}    
     
 }

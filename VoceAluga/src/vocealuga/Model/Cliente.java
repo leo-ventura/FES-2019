@@ -21,9 +21,6 @@ public class Cliente {
     private LocalDate dataDeNascimento;
     private String cpf;
     private String cnh;
-    // Date dataDeNascimento; // it may be better to use it as a string
-    // can't use boolean because mysql can't handle it
-    // though we can still use it as 0 => false and 1 => true
     private int necessidadesEspeciais;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private LocalDate dataDeCadastro = LocalDate.now();
@@ -119,7 +116,8 @@ public class Cliente {
     }
     
     public void setData(String data) {
-        this.dataDeNascimento = LocalDate.parse(data, formatter);
+        if(!data.equalsIgnoreCase("") && data != null)
+            this.dataDeNascimento = LocalDate.parse(data, formatter);
     }
     
     public void setCPF(String cpf) {
@@ -139,7 +137,8 @@ public class Cliente {
     }
     
     public void setDataDeCadastro(String data) {
-        this.dataDeCadastro = LocalDate.parse(data, formatter);
+        if(!data.equalsIgnoreCase("") && data != null)
+            this.dataDeCadastro = LocalDate.parse(data, formatter);
     }
     
     
@@ -157,7 +156,10 @@ public class Cliente {
     }
     
     public String getData() {
-        return this.dataDeNascimento.format(formatter);
+        if(this.dataDeNascimento != null)
+            return this.dataDeNascimento.format(formatter);
+        System.out.println("Nao foi possivel acessar data de nascimento");
+        return "";
     }
     
     public String getCPF() {
@@ -173,7 +175,10 @@ public class Cliente {
     }
     
     public String getDatadeCadastro() {
-        return this.dataDeCadastro.format(formatter);
+        if(formatter != null)
+            return this.dataDeCadastro.format(formatter);
+        System.out.println("Nao foi possivel acessar data de cadastro");
+        return "";
     }
     
     
@@ -186,10 +191,18 @@ public class Cliente {
                 midSeparator + this.cpf + midSeparator + this.cnh + midSeparator +
                 this.necessidadesEspeciais + midSeparator +
                 this.dataDeCadastro.format(formatter) + midSeparator +
-                this.dataDeAlteracao + endingSeparator;
+                this.dataDeAlteracao.format(formatter) + endingSeparator;
     }
     
     public String toString() {
+        if(this.nome.equals("") || this.endereco.equals("") || this.cc.equals("")
+        || this.cpf.equals("") || this.cnh.equals("")
+        || this.dataDeNascimento == null || this.dataDeCadastro == null) {
+            System.out.println("Existem campos vazios ou nulos nesse Cliente");
+            return "";
+        }
+            
+            
         return String.format("Nome: %s\nEndereco: %s\n"
                 + "Data de nascimento: %s\nCartão de Crédito: %s\n"
                 + "CPF: %s\nCNH: %s\nNecessidades Especiais: %s\n"
