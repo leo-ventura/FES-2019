@@ -18,11 +18,9 @@ public class Veiculo {
     private String modelo;
     private String grupo;
     private String placa;
-//    private String CPF;
-//    private LocalDate DataTermino;
-//    private LocalDate DataInicio;
-//    private int status;
-    
+    //incluir no Sprint 5
+    private double quilometragem;
+    private String combustivel;
     
     public Veiculo() {
         this.marca = "";
